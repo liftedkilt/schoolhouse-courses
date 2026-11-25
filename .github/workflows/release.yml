@@ -1,0 +1,47 @@
+name: Release courses
+
+# Publishes each course as a GitHub release, once per version: tag
+# course-<id>-v<version>, with <id>-<version>.zip attached. A release is never
+# replaced; a course's next version (its course.yaml `version`) gets a new one.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Release new course versions
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/zips"
+          for dir in */; do
+            dir=${dir%/}
+            [ -f "$dir/course.yaml" ] || continue
+            id=$(sed -n 's/^id: *//p' "$dir/course.yaml" | head -1)
+            version=$(sed -n 's/^version: *//p' "$dir/course.yaml" | head -1)
+            title=$(sed -n 's/^title: *//p' "$dir/course.yaml" | head -1)
+            tag="course-${id}-v${version}"
+            if gh release view "$tag" >/dev/null 2>&1; then
+              echo "$tag already released"
+              continue
+            fi
+            zip="$RUNNER_TEMP/zips/${id}-${version}.zip"
+            python3 .github/scripts/pack.py "$dir" "$zip"
+            url="https://github.com/${GITHUB_REPOSITORY}/releases/download/${tag}/${id}-${version}.zip"
+            printf 'Course package `%s` version %s (%s). In Schoolhouse, go to Parents › Courses and paste this link into **Install from link**, or download the zip and choose it as a course file:\n\n%s\n' \
+              "$id" "$version" "$title" "$url" > "$RUNNER_TEMP/notes.md"
+            gh release create "$tag" "$zip" --target "$GITHUB_SHA" --latest=false \
+              --title "Course: ${title} ${version}" --notes-file "$RUNNER_TEMP/notes.md"
+            echo "released $tag"
+          done

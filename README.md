@@ -2,11 +2,13 @@
 
 Course packages for Schoolhouse, a mastery-based math tutor for families. Each directory is one course: data only (a manifest, a skill graph, problem templates and the wording of worked steps and hints), with no code.
 
-| Course | Version | What it covers | Needs first |
-|---|---|---|---|
-| [`ratio_percent`](ratio_percent) | 0.2.0 | Ratio and rate, percent, and money: tax, tips, discounts, simple interest (18 skills) | Arithmetic: decimals and dividing fractions |
-| [`cooking`](cooking) | 0.1.0 | Kitchen measures, scaling recipes, cooking times and oven temperatures, cost and nutrition (29 skills) | Arithmetic: multiplying and dividing fractions; Ratio and percent, unit 1 |
-| [`household`](household) | 0.1.0 | Shopping, pay, budgets, bills and the home, sewing and fabric, borrowing and saving (28 skills) | All of Ratio and percent |
+| Course | What it covers | Needs first |
+|---|---|---|
+| [`ratio_percent`](ratio_percent) | Ratio and rate, percent, and money: tax, tips, discounts, simple interest (18 skills) | Arithmetic: decimals and dividing fractions |
+| [`cooking`](cooking) | Kitchen measures, scaling recipes, cooking times and oven temperatures, cost and nutrition (29 skills) | Arithmetic: multiplying and dividing fractions; Ratio and percent, unit 1 |
+| [`household`](household) | Shopping, pay, budgets, bills and the home, sewing and fabric, borrowing and saving (28 skills) | All of Ratio and percent |
+
+The current version of each course is on the [Releases](../../releases) page. Course files here are kept in step with the Schoolhouse project, and a new version is released automatically.
 
 ## Installing a course
 
