@@ -1,0 +1,34 @@
+name: hh_savings_goal_time
+skill: hh_savings_goal_time
+params:
+  per: { int: [3, 15] }
+  goal: { int: [20, 160] }
+  thing: { pick: [a bike, a guitar, a phone, a games console, a camping trip] }
+where:
+  - frac(round(goal / per, 1/100)) != 0
+  - frac(goal * 5 / (per * 5)) != 0
+  - goal / per > 3
+let:
+  save: per * 5
+  target: goal * 5
+  exact: target / save
+  weeks: ceil(exact)
+  approx: round(exact, 1/100)
+statement:
+  kind: statement.word@1
+  template: savings_goal
+  text: "You save {save|money} a week toward {thing} that costs {target|money}. How many weeks until you have enough?"
+  instruction: "Give a whole number of weeks."
+  quantities: [save, target]
+answer:
+  kind: answer.count@1
+  value: exact
+  round: up
+  units: [weeks, week]
+mistakes:
+  - { tag: rounded_down_count, value: floor(exact) }
+steps:
+  - { kind: hh_goal_divide, working: "{target|money} ÷ {save|money} ≈ {approx|dec}", result: exact, words: ["target|money", "save|money", "approx|dec"] }
+  - { kind: hh_goal_round, working: "{approx|dec} → {weeks} weeks", result: weeks, words: ["approx|dec"] }
+examples:
+  - { per: "10", goal: "126", thing: a bike }

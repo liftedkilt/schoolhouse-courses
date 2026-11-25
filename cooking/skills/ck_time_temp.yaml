@@ -1,0 +1,94 @@
+skills:
+- id: ck_time_add
+  title: Add cooking times in hours and minutes
+  name: Add cooking times
+  course: cooking
+  unit: ck_time_temp
+  grade: '5'
+  status: live
+  prerequisites:
+  - ck_measure_read
+  generator: ck_time_add
+  example_count: 1
+  answer_form: duration, hours and minutes
+  misconceptions:
+  - dropped_carry
+  interference: time_arithmetic
+  calculator: not_yet
+  intro: 'Time counts in sixties: 60 minutes make an hour. Add the minutes, and when they reach 60 or more, carry an hour.'
+  intro_source: own
+- id: ck_time_backwards
+  title: Work back from a serving time to a start time
+  name: When to start
+  course: cooking
+  unit: ck_time_temp
+  grade: '5'
+  status: live
+  prerequisites:
+  - ck_time_add
+  generator: ck_time_backwards
+  example_count: 1
+  answer_form: clock time, am or pm
+  misconceptions:
+  - subtracted_smaller_minutes
+  - added_instead
+  interference: time_arithmetic
+  calculator: not_yet
+  intro: To be ready on time, count back from when you want to eat by how long the dish takes. Count back the hours, then the minutes.
+  intro_source: own
+- id: ck_time_per_pound
+  title: Find a cooking time from minutes per pound
+  name: Minutes per pound
+  course: cooking
+  unit: ck_time_temp
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_time_add
+  - ck_weight_units
+  generator: ck_time_per_pound
+  example_count: 1
+  answer_form: duration, hours and minutes
+  misconceptions:
+  - ignored_fraction
+  calculator: not_yet
+  intro: 'Roasts are timed by weight: minutes per pound times pounds. Multiply the fraction of a pound too, then write the minutes as hours and minutes.'
+  intro_source: own
+- id: ck_temp_convert
+  title: Convert oven temperatures between Fahrenheit and Celsius with the formula
+  name: Oven temperatures
+  course: cooking
+  unit: ck_time_temp
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_time_add
+  generator: ck_temp_convert
+  example_count: 1
+  answer_form: number, whole degrees
+  misconceptions:
+  - forgot_32
+  - subtracted_after
+  - used_five_ninths
+  calculator: allowed
+  intro: Fahrenheit and Celsius start at different places and step differently, so the formula has two parts. Do them in the order the formula says.
+  intro_source: own
+- id: ck_schedule_meal
+  title: Plan start times so several dishes finish together
+  name: Plan the timing
+  course: cooking
+  unit: ck_time_temp
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_time_backwards
+  - ck_time_per_pound
+  generator: ck_schedule_meal
+  example_count: 1
+  answer_form: clock time, am or pm
+  misconceptions:
+  - forgot_rest
+  - added_instead
+  calculator: not_yet
+  intro: Add up every step a dish needs, resting time too, then count back from when the meal is served.
+  intro_source: own

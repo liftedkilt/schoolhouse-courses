@@ -1,0 +1,37 @@
+name: ck_measure_read
+skill: ck_measure_read
+params:
+  cap: { pick: ["1", "2"], d1: { pick: ["1"] } }
+  sub: { pick: ["2", "3", "4", "8"], d1: { pick: ["2", "3", "4"] } }
+  k: { int: [2, 15] }
+where:
+  - k < cap * sub
+  - frac(k / sub) != 0
+let:
+  mark: "if(sub == 2, 'half', if(sub == 3, 'third', if(sub == 4, 'quarter', 'eighth')))"
+  each: 1 / sub
+  fill: k / sub
+  cupword: "if(k / sub <= 1, 'cup', 'cups')"
+statement:
+  kind: statement.word@1
+  template: measuring_cup
+  text: "A {cap}-cup measuring cup has a line every {mark} cup. It is filled to line {k}, counting up from the bottom. How much is in it?"
+  instruction: "Give the amount in cups."
+  quantities: [cap, k]
+answer:
+  kind: answer.numeric@1
+  value: fill
+  allow_mixed: true
+  allow_improper: true
+  prefer_lowest_terms: true
+  units: [cup, cups]
+mistakes:
+  - { tag: wrong_mark_size, value: "k / if(sub == 4, 8, 4)" }
+  - { tag: marks_over_total_marks, value: "k / (cap * sub)" }
+steps:
+  - { kind: ck_read_mark, working: "1 ÷ {sub} = {each}", result: each, values: [sub], words: [mark, "each|frac"] }
+  - { kind: ck_read_count, working: "{k} × {each} = {answer}", result: fill, values: [k], words: ["each|frac", cupword] }
+figure:
+  - { widget: measuring_cup, capacity: cap, sub: sub, fill: fill }
+examples:
+  - { cap: "2", sub: "4", k: "6" }

@@ -1,0 +1,29 @@
+name: hh_check_register
+skill: hh_check_register
+params:
+  start: { decimal: { range: ["120.00", "900.00"], step: "0.01" } }
+  w1: { decimal: { range: ["8.00", "95.00"], step: "0.01" } }
+  dep: { decimal: { range: ["50.00", "400.00"], step: "0.50" } }
+  w2: { decimal: { range: ["5.00", "60.00"], step: "0.01" } }
+let:
+  b1: start - w1
+  b2: b1 + dep
+  bal: b2 - w2
+statement:
+  kind: statement.word@1
+  template: register
+  text: "An account starts at {start|money}. Then: a withdrawal of {w1|money}, a deposit of {dep|money}, and a withdrawal of {w2|money}. What is the balance now?"
+  instruction: "Give the balance in dollars and cents."
+  quantities: [start, w1, dep, w2]
+answer:
+  kind: answer.numeric@1
+  value: bal
+  money: true
+mistakes:
+  - { tag: added_withdrawal, value: start + w1 + dep - w2 }
+steps:
+  - { kind: hh_reg_w1, working: "{start|money} − {w1|money} = {b1|money}", result: b1, words: ["start|money", "w1|money", "b1|money"] }
+  - { kind: hh_reg_dep, working: "{b1|money} + {dep|money} = {b2|money}", result: b2, words: ["b1|money", "dep|money", "b2|money"] }
+  - { kind: hh_reg_w2, working: "{b2|money} − {w2|money} = {answer|money}", result: bal, words: ["b2|money", "w2|money", "answer|money"] }
+examples:
+  - { start: "312.40", w1: "45.99", dep: "150.00", w2: "12.75" }

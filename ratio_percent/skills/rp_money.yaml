@@ -1,0 +1,74 @@
+skills:
+  - id: rp_sales_tax
+    title: "Find the total with sales tax"
+    name: "Sales tax"
+    course: ratio_percent
+    unit: rp_money
+    grade: "7"
+    status: live
+    prerequisites: [rp_percent_increase_decrease]
+    generator: rp_sales_tax
+    example_count: 1
+    answer_form: "money"
+    interference: rp_money_percent
+    misconceptions: [gave_change_only, tax_as_whole_dollars]
+    intro: "Sales tax is a percent of the price added on top. Find the tax, round it to the cent, then add it."
+    intro_source: own
+  - id: rp_tip
+    title: "Work out a tip, rounding to the cent"
+    name: "Tips"
+    course: ratio_percent
+    unit: rp_money
+    grade: "7"
+    status: live
+    prerequisites: [rp_sales_tax]
+    generator: rp_tip
+    example_count: 1
+    answer_form: "money"
+    interference: rp_money_percent
+    misconceptions: [moved_point_one_place]
+    intro: "A tip is a percent of the bill. Multiply, then round to the nearest cent."
+    intro_source: own
+  - id: rp_discount_price
+    title: "Find a sale price"
+    name: "Sale prices"
+    course: ratio_percent
+    unit: rp_money
+    grade: "7"
+    status: live
+    prerequisites: [rp_percent_increase_decrease]
+    generator: rp_discount_price
+    example_count: 1
+    answer_form: "money"
+    interference: rp_money_percent
+    misconceptions: [gave_change_only]
+    intro: "A discount is taken away from the price. The sale price is what is left."
+    intro_source: own
+  - id: rp_simple_interest
+    title: "Simple interest: principal x rate x time"
+    name: "Simple interest"
+    course: ratio_percent
+    unit: rp_money
+    grade: "7"
+    status: live
+    prerequisites: [rp_percent_of]
+    generator: rp_simple_interest
+    example_count: 1
+    answer_form: "money"
+    misconceptions: [one_year_only, rate_as_whole]
+    intro: "Simple interest is the same amount every year: the principal times the rate, times the number of years."
+    intro_source: own
+  - id: rp_percent_word_problems
+    title: "Mark a price up, then take a discount"
+    name: "Mark-up then sale"
+    course: ratio_percent
+    unit: rp_money
+    grade: "7"
+    status: live
+    prerequisites: [rp_successive_percent, rp_tip, rp_discount_price, rp_simple_interest, rp_percent_find_whole]
+    generator: rp_percent_word_problems
+    example_count: 1
+    answer_form: "money"
+    misconceptions: [added_percents]
+    intro: "Each percent is taken of the price at that moment: first the mark-up on the cost, then the discount on the marked-up price."
+    intro_source: own

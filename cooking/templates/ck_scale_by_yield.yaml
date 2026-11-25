@@ -1,0 +1,33 @@
+name: ck_scale_by_yield
+skill: ck_scale_by_yield
+params:
+  n: { pick: ["6", "8", "10", "12", "16", "18", "24"] }
+  each: { int: [8, 24] }
+  want: { int: [5, 60] }
+  piece: { pick: [rolls, buns, dumplings, meatballs, tortillas] }
+where:
+  - want != n
+  - want / n != floor(want / n)
+let:
+  grams: each * 5
+  dough: n * grams
+  result: want * grams
+statement:
+  kind: statement.word@1
+  template: by_yield
+  text: "{dough} grams of dough makes {n} {piece}, all the same size. How much dough do you need for {want} {piece}?"
+  instruction: "Give the weight in grams."
+  quantities: [dough, n, want]
+  units: { dough: grams }
+answer:
+  kind: answer.numeric@1
+  value: result
+  units: [g, grams]
+mistakes:
+  - { tag: added_difference, value: "dough + (want - n)" }
+  - { tag: inverted_factor, value: "dough * n / want" }
+steps:
+  - { kind: ck_yield_one, working: "{dough} ÷ {n} = {grams}", result: grams, values: [dough, n, grams], words: [piece] }
+  - { kind: ck_yield_many, working: "{grams} × {want} = {answer}", result: result, values: [grams, want], words: [piece] }
+examples:
+  - { n: "12", each: "15", want: "30", piece: rolls }

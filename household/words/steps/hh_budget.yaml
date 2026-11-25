@@ -1,0 +1,40 @@
+hh_bal_spent:
+  source: own
+  prose: 'Add up the expenses: {rent_d} + {car_d} + {phone} + {food_d} = {spent}.'
+  hint: 'Add every expense on the list.'
+hh_bal_left:
+  source: own
+  prose: 'Take what is spent from the income: {inc} − {spent} = {answer} left.'
+  hint: 'Take the total of the expenses away from the income.'
+hh_pct_of:
+  source: own
+  prose: '{p}% is {pd} as a decimal, and {inc} × {pd} = {answer}.'
+  hint: 'Write the percent as a decimal and multiply the income by it.'
+hh_share_divide:
+  source: own
+  prose: 'Divide the budget line by the income: {amount} ÷ {inc} = {share}.'
+  hint: 'What part of the income is it? Divide the line by the whole income.'
+hh_share_pct:
+  source: own
+  prose: 'As a percent: {share} × 100 = {answer}%.'
+  hint: 'Multiply by 100 to write it as a percent.'
+hh_goal_divide:
+  source: own
+  prose: 'Divide the cost by what you save each week: {target} ÷ {save} is about {approx} weeks.'
+  hint: 'How many weeks of saving make the whole cost? Divide.'
+hh_goal_round:
+  source: own
+  prose: 'That is more than a whole number of weeks, and you do not have it all until the end of a week, so it takes {answer} weeks.'
+  hint: 'Part of a week is not enough to finish. Which way do you round?'
+hh_reg_w1:
+  source: own
+  prose: 'A withdrawal comes off: {start} − {w1} = {b1}.'
+  hint: 'Work down the list in order. A withdrawal is taken away.'
+hh_reg_dep:
+  source: own
+  prose: 'A deposit is added: {b1} + {dep} = {b2}.'
+  hint: 'A deposit is money put in. Add it.'
+hh_reg_w2:
+  source: own
+  prose: 'The last withdrawal comes off: {b2} − {w2} = {answer}.'
+  hint: 'Take the last withdrawal away.'

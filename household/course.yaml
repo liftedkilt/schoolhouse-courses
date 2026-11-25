@@ -1,0 +1,44 @@
+# Household math: shopping, pay, budgets, bills and the home, sewing, and
+# borrowing and saving (docs/research/household-course-plan.md,
+# docs/research/household-roadmap.md). A course package: data only. Build it
+# with `go run ./cmd/coursepack -zip household.zip courses/household` and
+# install it in Parents › Courses.
+format: 1
+id: household
+version: 0.1.0
+title: Household math
+summary: Shop smart, read a paycheck, budget, pay bills, plan home projects and borrow wisely.
+prefixes: [hh_]
+audience: { ages: "11-18" }
+voice: voice.child_9_14@1
+licence: { text: own }
+subject_pic: assets/subject.svg
+needs:
+  - generator.template@1
+  - statement.word@1
+  - answer.numeric@1
+  - answer.choice@1
+  - answer.count@1
+  - figure.shape@1
+  - voice.child_9_14@1
+  - requirement.course_done@1
+requires:
+  all:
+    - { rule: requirement.course_done@1, course: ratio_percent }
+units:
+  - { id: hh_shopping, name: "Shopping", file: skills/hh_shopping.yaml }
+  - { id: hh_earning, name: "Earning", file: skills/hh_earning.yaml }
+  - { id: hh_budget, name: "Budgeting", file: skills/hh_budget.yaml }
+  - { id: hh_home, name: "Bills and the home", file: skills/hh_home.yaml }
+  - { id: hh_fabric, name: "Sewing and fabric", file: skills/hh_fabric.yaml }
+  - { id: hh_credit, name: "Borrowing and saving", file: skills/hh_credit.yaml }
+placement:
+  start_points:
+    - { key: shopping, label: "Start with shopping", note: "Unit prices, better buys, receipts and change.", skill: hh_unit_price }
+    - { key: money, label: "Shopping is fine, start with pay and budgets", note: "Hourly pay, overtime, paychecks, then budgets.", skill: hh_hourly_pay }
+    - { key: home, label: "Start with bills and the home", note: "Meter readings, bills, paint and flooring.", skill: hh_meter_usage }
+  default: shopping
+settings:
+  - { key: goal_minutes, type: int, min: 5, max: 90, default: 25, label: "Minutes a day" }
+tracks:
+  - { id: home, title: "Home: cooking and household", courses: [arithmetic, ratio_percent, cooking, household] }

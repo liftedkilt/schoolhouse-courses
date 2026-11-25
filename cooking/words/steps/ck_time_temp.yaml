@@ -1,0 +1,36 @@
+ck_time_add_sum:
+  source: own
+  prose: 'Add the hours and the minutes. Every 60 minutes makes another hour: {first} + {second} = {answer}.'
+  hint: 'Add the minutes first. If they come to 60 or more, turn 60 of them into an hour.'
+ck_back_hours:
+  source: own
+  prose: 'Count back the whole hours first: {ch} {hword} before {serve} is {mid}.'
+  hint: 'Count back the hours first, then the minutes.'
+ck_back_minutes:
+  source: own
+  prose: 'Then count back {mins} more minutes. That goes back past the hour: {mid} − {mins} minutes is {answer}.'
+  hint: 'Counting back past the hour? Go back to the hour first, then take what is left of the minutes from 60.'
+ck_pound_multiply:
+  source: own
+  prose: 'Multiply the minutes per pound by the pounds, the fraction too: {rate} × {w} = {total} minutes.'
+  hint: 'Multiply {rate} minutes by the weight, the fraction of a pound included.'
+ck_pound_hours:
+  source: own
+  prose: 'Write {total} minutes as hours and minutes, 60 minutes to the hour: {answer}.'
+  hint: 'How many whole hours of 60 minutes are in that, and how many minutes are left?'
+ck_temp_first:
+  source: own
+  prose: 'Do the formula in order. {first_word}: {from} {op1} {n1} = {first}.'
+  hint: 'Follow the formula one step at a time, starting with the first thing it does to the temperature.'
+ck_temp_second:
+  source: own
+  prose: 'Then {second_word}: {first} {op2} {n2} = {exact}, which rounds to {answer} degrees.'
+  hint: 'Now do the formula''s second step, then round to the nearest whole degree.'
+ck_sched_total:
+  source: own
+  prose: 'The {meat} is busy for its roasting time and its rest together: {roast} + {rest} minutes = {busy}.'
+  hint: 'Add every step the dish needs before it is ready to eat, the rest too.'
+ck_sched_back:
+  source: own
+  prose: 'Count back {busy} from {serve}: it goes in the oven at {answer}.'
+  hint: 'Count back that much time from when dinner is served.'

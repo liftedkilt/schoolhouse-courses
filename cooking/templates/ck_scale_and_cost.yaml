@@ -1,0 +1,32 @@
+name: ck_scale_and_cost
+skill: ck_scale_and_cost
+params:
+  serves: { pick: ["2", "4", "6", "8"] }
+  want: { int: [3, 20] }
+  each: { decimal: { range: ["0.75", "3.50"], step: "0.05" } }
+  dish: { pick: [spaghetti, curry, pancakes, chili, stir fry] }
+where:
+  - want != serves
+  - frac(want * each * 100) == 0
+  - want * each != serves * each + (want - serves)
+let:
+  cost: serves * each
+  factor: want / serves
+  result: cost * factor
+statement:
+  kind: statement.word@1
+  template: scale_cost
+  text: "A recipe for {dish} serves {serves} and costs {cost|money} to make. What does it cost to make it for {want}?"
+  instruction: "Give the cost in dollars and cents."
+  quantities: [serves, cost, want]
+answer:
+  kind: answer.numeric@1
+  value: result
+  money: true
+mistakes:
+  - { tag: added_difference, value: "cost + (want - serves)" }
+steps:
+  - { kind: ck_word_factor_cost, working: "{want} ÷ {serves} = {factor}", result: factor, values: [want, serves], words: ["factor|mixed"] }
+  - { kind: ck_cost_scale, working: "{cost|money} × {factor} = {answer|money}", result: result, words: ["cost|money", "factor|mixed", "answer|money"] }
+examples:
+  - { serves: "4", want: "10", each: "2.25", dish: spaghetti }

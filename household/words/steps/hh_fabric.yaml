@@ -1,0 +1,32 @@
+hh_yd_inches:
+  source: own
+  prose: 'First the total length: {n} pieces of {each} inches is {n} × {each} = {inches} inches.'
+  hint: 'How many inches do all the pieces need together?'
+hh_yd_divide:
+  source: own
+  prose: 'A yard is 36 inches, so divide by 36: {inches} ÷ 36 = {answer} yards.'
+  hint: 'Change inches to yards. How many inches are in a yard?'
+hh_seam_two:
+  source: own
+  prose: 'There is a seam on each side, two in all: {sa} × 2 = {both} inch.'
+  hint: 'How many sides get a seam allowance?'
+hh_seam_add:
+  source: own
+  prose: 'Add both allowances to the finished width: {fin} + {both} = {answer} inches.'
+  hint: 'Add the allowances to the finished size.'
+hh_fab_times:
+  source: own
+  prose: 'Multiply the price by the yards, the fraction of a yard too: {price} × {yd} = {answer}.'
+  hint: 'Multiply the price of a yard by the number of yards, fraction included.'
+hh_quilt_across:
+  source: own
+  prose: 'Across the top: {w} ÷ {side} = {a} squares.'
+  hint: 'How many squares fit across the top?'
+hh_quilt_down:
+  source: own
+  prose: 'Down the side: {h} ÷ {side} = {b} squares.'
+  hint: 'Now how many fit down the side?'
+hh_quilt_times:
+  source: own
+  prose: '{a} rows of {b} make {a} × {b} = {answer} squares.'
+  hint: 'Multiply the squares across by the squares down.'

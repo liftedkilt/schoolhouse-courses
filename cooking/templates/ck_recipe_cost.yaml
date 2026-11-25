@@ -1,0 +1,39 @@
+name: ck_recipe_cost
+skill: ck_recipe_cost
+params:
+  bag: { pick: ["4", "5", "10"] }
+  per_lb: { decimal: { range: ["0.40", "1.20"], step: "0.04" } }
+  use: { fraction: { wholes: [0, 2], dens: [2, 4] } }
+  butter_lb: { decimal: { range: ["3.60", "6.40"], step: "0.20" } }
+  bu: { pick: ["1/4", "1/2", "3/4"] }
+  dozen: { decimal: { range: ["2.40", "4.80"], step: "0.12" } }
+  eggs: { int: [2, 4] }
+where:
+  - frac(use * per_lb * 100) == 0
+let:
+  price: bag * per_lb
+  flour: use * per_lb
+  butter: bu * butter_lb
+  egg_each: dozen / 12
+  egg_cost: eggs * egg_each
+  total: flour + butter + egg_cost
+  lbword: "if(use <= 1, 'pound', 'pounds')"
+statement:
+  kind: statement.word@1
+  template: recipe_cost
+  text: "A cake uses {use} {lbword} of flour from a {bag}-pound bag that cost {price|money}, {bu} pound of butter at {butter_lb|money} a pound, and {eggs} eggs from a dozen that cost {dozen|money}. What do the ingredients for the cake cost?"
+  instruction: "Give the cost in dollars and cents."
+  quantities: [use, bag, price, bu, butter_lb, eggs, dozen]
+answer:
+  kind: answer.numeric@1
+  value: total
+  money: true
+mistakes:
+  - { tag: whole_packages_priced, value: price + butter_lb + dozen }
+steps:
+  - { kind: ck_rc_flour, working: "{price|money} ÷ {bag} × {use} = {flour|money}", result: flour, values: [bag], words: ["price|money", use, "flour|money"] }
+  - { kind: ck_rc_butter, working: "{butter_lb|money} × {bu} = {butter|money}", result: butter, words: ["butter_lb|money", bu, "butter|money"] }
+  - { kind: ck_rc_eggs, working: "{dozen|money} ÷ 12 × {eggs} = {egg_cost|money}", result: egg_cost, values: [eggs], words: ["dozen|money", "egg_cost|money"] }
+  - { kind: ck_rc_total, working: "{flour|money} + {butter|money} + {egg_cost|money} = {answer|money}", result: total, words: ["flour|money", "butter|money", "egg_cost|money", "answer|money"] }
+examples:
+  - { bag: "5", per_lb: "0.64", use: "1 1/4", butter_lb: "4.80", bu: "1/2", dozen: "3.00", eggs: "2" }

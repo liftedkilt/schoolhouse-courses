@@ -1,0 +1,37 @@
+name: ck_metric_kitchen
+skill: ck_metric_kitchen
+params:
+  dir: { pick: [l_ml, ml_l, kg_g, g_kg] }
+  big: { decimal: { range: ["0.25", "4.75"], step: "0.05" }, d1: { decimal: { range: ["0.5", "4.5"], step: "0.5" } } }
+  small: { int: [3, 70] }
+where:
+  - frac(big) != 0
+let:
+  grams: small * 50
+  per: 1000
+  mult: "dir in ['l_ml', 'kg_g']"
+  liquid: "dir in ['l_ml', 'ml_l']"
+  from: "if(mult, big, grams)"
+  from_unit: "if(liquid, if(mult, 'litres', 'millilitres'), if(mult, 'kilograms', 'grams'))"
+  to_unit: "if(liquid, if(mult, 'millilitres', 'litres'), if(mult, 'grams', 'kilograms'))"
+  big_one: "if(liquid, 'litre', 'kilogram')"
+  small_word: "if(liquid, 'millilitres', 'grams')"
+  op: "if(mult, '×', '÷')"
+  result: "if(mult, big * per, grams / per)"
+statement:
+  kind: statement.word@1
+  template: metric_kitchen
+  text: "How many {to_unit} are in {from|dec} {from_unit}?"
+  instruction: "Give the number of {to_unit}, as a decimal if you need one."
+  quantities: [from]
+answer:
+  kind: answer.numeric@1
+  value: result
+  allow_decimal: true
+mistakes:
+  - { tag: moved_point_wrong, value: "if(mult, big * 100, grams / 100)" }
+steps:
+  - { kind: ck_fact, working: "1 {big_one} = {per} {small_word}", result: per, values: [per], words: [big_one, small_word, to_unit] }
+  - { kind: ck_convert_dec, working: "{from|dec} {op} {per} = {answer|dec}", result: result, values: [per], words: ["from|dec", op, to_unit, "answer|dec"] }
+examples:
+  - { dir: l_ml, big: "1.5", small: "15" }

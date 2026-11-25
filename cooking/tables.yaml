@@ -1,0 +1,12 @@
+# Kitchen measurement facts (US customary and metric), quoted by problems.
+per:
+  tsp_tbsp: "3"      # teaspoons in a tablespoon
+  tbsp_cup: "16"     # tablespoons in a cup
+  floz_cup: "8"      # fluid ounces in a cup
+  cup_pint: "2"      # cups in a pint
+  pint_quart: "2"    # pints in a quart
+  cup_quart: "4"     # cups in a quart
+  quart_gallon: "4"  # quarts in a gallon
+  oz_lb: "16"        # ounces in a pound
+  ml_l: "1000"       # millilitres in a litre
+  g_kg: "1000"       # grams in a kilogram

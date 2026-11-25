@@ -1,0 +1,37 @@
+name: ck_time_backwards
+skill: ck_time_backwards
+params:
+  sh: { int: [17, 19], d3: { int: [11, 19] } }
+  sm: { pick: ["0", "10", "15", "20", "30", "45"] }
+  ch: { int: [1, 3] }
+  cm: { int: [1, 11] }
+  dish: { pick: [the lasagne, the stew, the bread, the pot roast, the curry] }
+where:
+  - sm < cm * 5
+let:
+  serve: sh * 60 + sm
+  cook: ch * 60 + cm * 5
+  start: serve - cook
+  mid: serve - ch * 60
+  mins: cm * 5
+  hword: "if(ch == 1, 'hour', 'hours')"
+statement:
+  kind: statement.word@1
+  template: start_time
+  text: "Dinner is at {serve|clock}, and {dish} takes {cook|hm} from start to finish. What time do you start it?"
+  instruction: "Give the time with am or pm."
+  quantities: [serve, cook]
+  units: { serve: minutes after midnight, cook: minutes }
+  private: true
+answer:
+  kind: answer.clock@1
+  value: start
+  ampm: true
+mistakes:
+  - { tag: subtracted_smaller_minutes, value: "(sh - ch) * 60 + (cm * 5 - sm)" }
+  - { tag: added_instead, value: serve + cook }
+steps:
+  - { kind: ck_back_hours, working: "{serve|clock} − {ch} h = {mid|clock}", result: mid, values: [ch], words: ["serve|clock", "mid|clock", hword] }
+  - { kind: ck_back_minutes, working: "{mid|clock} − {mins} min = {answer|clock}", result: start, values: [mins], words: ["mid|clock", "answer|clock"] }
+examples:
+  - { sh: "18", sm: "15", ch: "2", cm: "8", dish: the lasagne }

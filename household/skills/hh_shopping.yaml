@@ -1,0 +1,87 @@
+skills:
+- id: hh_unit_price
+  title: Find a unit price from a shelf price and size
+  name: Unit price
+  course: household
+  unit: hh_shopping
+  grade: 6-7
+  status: live
+  root: true
+  generator: hh_unit_price
+  example_count: 1
+  answer_form: money, to the cent
+  misconceptions:
+  - inverted_rate
+  interference: rate_direction_hh
+  calculator: allowed
+  intro: 'A unit price is what one ounce (or one of anything) costs. Divide the price by the size: dollars on top, ounces underneath.'
+  intro_source: own
+- id: hh_best_buy
+  title: Choose the better buy among sizes by unit price
+  name: Better buy
+  course: household
+  unit: hh_shopping
+  grade: 6-7
+  status: live
+  prerequisites:
+  - hh_unit_price
+  generator: hh_best_buy
+  example_count: 1
+  answer_form: choice
+  misconceptions:
+  - chose_lower_total
+  interference: rate_direction_hh
+  calculator: allowed
+  intro: 'The cheaper package is not always the better buy. Compare unit prices: the size that costs less per ounce wins.'
+  intro_source: own
+- id: hh_coupon_vs_sale
+  title: Compare a dollars-off coupon with a percent-off sale
+  name: Coupon or sale
+  course: household
+  unit: hh_shopping
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_best_buy
+  generator: hh_coupon_vs_sale
+  example_count: 1
+  answer_form: choice
+  misconceptions:
+  - bigger_number_wins
+  calculator: allowed
+  intro: A coupon takes off dollars; a sale takes off a percent of the price. Work out each final price before you choose.
+  intro_source: own
+- id: hh_receipt_total
+  title: Total a receipt where only some items are taxed
+  name: Taxed and untaxed
+  course: household
+  unit: hh_shopping
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_unit_price
+  generator: hh_receipt_total
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - taxed_everything
+  calculator: allowed
+  intro: Some things are taxed and some are not. Work out the tax on the taxed items only, then add everything up.
+  intro_source: own
+- id: hh_change_making
+  title: Work out change from a payment
+  name: Making change
+  course: household
+  unit: hh_shopping
+  grade: 5-6
+  status: live
+  prerequisites:
+  - hh_unit_price
+  generator: hh_change_making
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - no_borrow_from_dollars
+  calculator: not_yet
+  intro: Change is what you paid minus what it cost. Line up the decimal points, and borrow from the dollars when the cents run out.
+  intro_source: own

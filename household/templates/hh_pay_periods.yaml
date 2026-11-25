@@ -1,0 +1,33 @@
+name: hh_pay_periods
+skill: hh_pay_periods
+params:
+  dir: { pick: [week_month, month_week] }
+  weekly: { int: [180, 1400] }
+  monthly: { int: [16, 120] }
+let:
+  month_pay: monthly * 50
+  weekish: "dir == 'week_month'"
+  from: "if(weekish, weekly, month_pay)"
+  from_word: "if(weekish, 'a week', 'a month')"
+  to_word: "if(weekish, 'a month', 'a week')"
+  many: "if(weekish, 52, 12)"
+  split: "if(weekish, 12, 52)"
+  yearly_total: from * many
+  result: cents(yearly_total / split)
+statement:
+  kind: statement.word@1
+  template: pay_period
+  text: "A job pays {from|money} {from_word}. How much is that {to_word}? A year has 52 weeks and 12 months."
+  instruction: "Give the amount in dollars and cents, rounded to the nearest cent."
+  quantities: [from]
+answer:
+  kind: answer.numeric@1
+  value: result
+  money: true
+mistakes:
+  - { tag: four_weeks_a_month, value: "if(weekish, weekly * 4, cents(month_pay / 4))" }
+steps:
+  - { kind: hh_period_year, working: "{from|money} × {many} = {yearly_total|money}", result: yearly_total, values: [many], words: ["from|money", from_word, "yearly_total|money"] }
+  - { kind: hh_period_to, working: "{yearly_total|money} ÷ {split} = {answer|money}", result: result, values: [split], words: ["yearly_total|money", to_word, "answer|money"] }
+examples:
+  - { dir: week_month, weekly: "650", monthly: "60" }

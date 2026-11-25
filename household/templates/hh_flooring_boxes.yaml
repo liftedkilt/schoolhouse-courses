@@ -1,0 +1,42 @@
+name: hh_flooring_boxes
+skill: hh_flooring_boxes
+params:
+  len: { int: [8, 20] }
+  wid: { int: [7, 16] }
+  waste: { pick: ["5", "10", "15"] }
+  box: { pick: ["18", "20", "22", "24"] }
+where:
+  - frac(round(len * wid * (100 + waste) / 100 / box, 1/100)) != 0
+  - len != wid
+  - ceil(len * wid * (100 + waste) / 100 / box) != len
+  - ceil(len * wid * (100 + waste) / 100 / box) != wid
+  - ceil(len * wid * (100 + waste) / 100 / box) != ceil(len * wid / box)
+let:
+  area: len * wid
+  extra: area * waste / 100
+  total: area + extra
+  exact: total / box
+  boxes: ceil(exact)
+  approx: round(exact, 1/100)
+statement:
+  kind: statement.word@1
+  template: flooring
+  text: "A room's floor is {len} ft by {wid} ft. Add {waste}% for waste and cuts. A box of flooring covers {box} sq ft. How many boxes do you buy?"
+  instruction: "Give a whole number of boxes."
+  quantities: [len, wid, waste, box]
+answer:
+  kind: answer.count@1
+  value: exact
+  round: up
+  units: [boxes, box]
+mistakes:
+  - { tag: no_waste_allowance, value: ceil(area / box) }
+steps:
+  - { kind: hh_floor_area, working: "{len} × {wid} = {area}", result: area, values: [len, wid, area] }
+  - { kind: hh_floor_waste, working: "{area} + {extra|dec} = {total|dec}", result: total, values: [waste, area], words: ["extra|dec", "total|dec"] }
+  - { kind: hh_floor_boxes, working: "{total|dec} ÷ {box} ≈ {approx|dec}", result: exact, values: [box], words: ["total|dec", "approx|dec"] }
+  - { kind: hh_floor_round, working: "{approx|dec} → {boxes} boxes", result: boxes, words: ["approx|dec"] }
+figure:
+  - { widget: rectangle, width: len, height: wid, unit: "'ft'" }
+examples:
+  - { len: "12", wid: "14", waste: "10", box: "24" }

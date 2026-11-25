@@ -1,0 +1,28 @@
+name: rp_percent_what_percent
+skill: rp_percent_what_percent
+params:
+  whole: { pick: ["20", "25", "40", "50", "60", "72", "80", "120", "200"] }
+  p: { pick: ["5", "10", "15", "20", "25", "30", "40", "45", "60", "75", "80", "85"] }
+where:
+  - den(whole * p / 100) == 1
+let:
+  part: whole * p / 100
+  frac: part / whole
+statement:
+  kind: statement.word@1
+  template: what_percent
+  text: "{part} is what percent of {whole}?"
+  instruction: "Give the percent."
+  quantities: [part, whole]
+answer:
+  kind: answer.numeric@1
+  value: p
+  allow_mixed: true
+  units: [percent, "%"]
+mistakes:
+  - { tag: inverted_ratio, value: "whole / part * 100" }
+steps:
+  - { kind: rp_what_divide, working: "{part} ÷ {whole} = {frac|dec}", result: frac, values: [part, whole], words: ["frac|dec"] }
+  - { kind: rp_what_hundred, working: "{frac|dec} × 100 = {answer}%", result: p, words: ["frac|dec"] }
+examples:
+  - { whole: "72", p: "25" }

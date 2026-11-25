@@ -1,0 +1,143 @@
+skills:
+- id: ck_cost_per_serving
+  title: Find the cost per serving of a recipe
+  name: Cost per serving
+  course: cooking
+  unit: ck_cost
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_scale_factor
+  generator: ck_cost_per_serving
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - multiplied_instead
+  calculator: allowed
+  intro: 'The cost per serving is the cost of the whole recipe shared equally: divide it by the number of servings.'
+  intro_source: own
+- id: ck_ingredient_cost
+  title: Find what the part of a package a recipe uses costs
+  name: Cost of what you use
+  course: cooking
+  unit: ck_cost
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_cost_per_serving
+  - ck_weight_units
+  generator: ck_ingredient_cost
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - bag_price_times_amount
+  calculator: allowed
+  intro: A recipe rarely uses the whole package. Find the price of one pound (or one of anything), then multiply by how much the recipe uses.
+  intro_source: own
+- id: ck_recipe_cost
+  title: Add up the cost of a recipe from its ingredients
+  name: Cost of a recipe
+  course: cooking
+  unit: ck_cost
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_ingredient_cost
+  generator: ck_recipe_cost
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - whole_packages_priced
+  calculator: allowed
+  intro: Cost each ingredient for the amount the recipe uses, then add the costs together.
+  intro_source: own
+- id: ck_package_count
+  title: 'Buy whole packages: round up to cover what the recipe needs'
+  name: Whole packages
+  course: cooking
+  unit: ck_cost
+  grade: 5-6
+  status: live
+  prerequisites:
+  - ck_cups_quarts
+  generator: ck_package_count
+  example_count: 1
+  answer_form: number, whole, rounded up
+  misconceptions:
+  - rounded_down_packages
+  interference: rounding_direction
+  calculator: not_yet
+  intro: Shops sell whole packages. Divide what you need by how many come in one, and if there is any left over, you need one more package.
+  intro_source: own
+- id: ck_nutrition_servings
+  title: Scale nutrition facts by the number of servings eaten
+  name: Servings on a label
+  course: cooking
+  unit: ck_cost
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_cost_per_serving
+  generator: ck_nutrition_servings
+  example_count: 1
+  answer_form: number
+  misconceptions:
+  - added_servings
+  calculator: not_yet
+  intro: A nutrition label gives the amounts for one serving. Eat more servings and every amount is multiplied by how many you ate.
+  intro_source: own
+- id: ck_nutrition_percent_dv
+  title: Work out percent daily value from a label
+  name: Percent daily value
+  course: cooking
+  unit: ck_cost
+  grade: 6-7
+  status: live
+  prerequisites:
+  - ck_nutrition_servings
+  generator: ck_nutrition_percent_dv
+  example_count: 1
+  answer_form: percent
+  misconceptions:
+  - inverted_ratio
+  calculator: allowed
+  intro: 'Percent daily value says how much of a day''s amount one serving gives: the amount in a serving divided by the daily value, written as a percent.'
+  intro_source: own
+- id: ck_scale_and_cost
+  title: Scale a recipe and find its new cost
+  name: Scale the cost
+  course: cooking
+  unit: ck_cost
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_recipe_cost
+  - ck_scale_amount
+  generator: ck_scale_and_cost
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - added_difference
+  calculator: allowed
+  intro: 'The cost of a recipe scales like its amounts: multiply by the scale factor, the servings you want over the servings it makes.'
+  intro_source: own
+- id: ck_meal_project
+  title: 'Plan a meal: scale, make a shopping list in whole packages, and cost it'
+  name: Plan and cost a meal
+  course: cooking
+  unit: ck_cost
+  grade: 6-7
+  status: live
+  prerequisites:
+  - ck_scale_and_cost
+  - ck_package_count
+  - ck_scale_word_problems
+  generator: ck_meal_project
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - rounded_down_packages
+  - priced_exact_amount
+  calculator: allowed
+  intro: 'Planning a meal puts it all together: scale the recipe, round up to whole packages, then add up what you pay.'
+  intro_source: own

@@ -1,0 +1,68 @@
+ck_per_serving:
+  source: own
+  prose: 'Share the cost equally among the {serves} servings: {total} ÷ {serves} = {answer} a serving.'
+  hint: 'Divide the cost of the whole batch by the number of servings.'
+ck_price_per_lb:
+  source: own
+  prose: 'First find what one pound of {item} costs: {price} ÷ {bag} = {per_lb}.'
+  hint: 'What does one pound cost? Divide the bag''s price by its pounds.'
+ck_price_used:
+  source: own
+  prose: 'Then multiply by the pounds the recipe uses: {per_lb} × {use} = {answer}.'
+  hint: 'Multiply the price of one pound by the pounds the recipe uses.'
+ck_rc_flour:
+  source: own
+  prose: 'Flour: one pound costs {price} ÷ {bag}, and the cake uses {use} pounds, which costs {flour}.'
+  hint: 'Cost each ingredient for only the part the cake uses. Start with the flour: price per pound times pounds.'
+ck_rc_butter:
+  source: own
+  prose: 'Butter: {bu} of a pound at {butter_lb} a pound is {butter}.'
+  hint: 'Butter is priced per pound. Multiply by the part of a pound the cake uses.'
+ck_rc_eggs:
+  source: own
+  prose: 'Eggs: one egg costs {dozen} ÷ 12, and {eggs} eggs cost {egg_cost}.'
+  hint: 'A dozen is 12 eggs. Find what one egg costs, then multiply.'
+ck_rc_total:
+  source: own
+  prose: 'Add the three costs: {flour} + {butter} + {egg_cost} = {answer}.'
+  hint: 'Add the cost of each ingredient.'
+ck_pack_divide:
+  source: own
+  prose: 'Divide what you need by how many are in a pack: {need} ÷ {per} = {exact} packs.'
+  hint: 'How many packs would hold exactly what you need? Divide.'
+ck_pack_round:
+  source: own
+  prose: 'The shop sells only whole packs, and {exact} packs is not enough, so round up: buy {answer} packs.'
+  hint: 'You can''t buy part of a pack, and you can''t run short. Which way do you round?'
+ck_label_times:
+  source: own
+  prose: 'Each serving has {per} calories, so {s} servings have {per} × {s} = {answer} calories.'
+  hint: 'Multiply the calories in one serving by the number of servings you eat.'
+ck_dv_divide:
+  source: own
+  prose: 'Divide the amount in a serving by the daily value: {g} {unit} ÷ {dv} {unit} = {frac_dv}.'
+  hint: 'What part of the daily value is in one serving? Divide the amount by the daily value.'
+ck_dv_percent:
+  source: own
+  prose: 'Write it as a percent: {frac_dv} × 100 = {answer}%.'
+  hint: 'Multiply by 100 to write it as a percent.'
+ck_word_factor_cost:
+  source: own
+  prose: 'The scale factor is the servings you want over the servings the recipe makes: {want} ÷ {serves} = {factor}.'
+  hint: 'Find the scale factor first: divide the servings you want by the servings it makes.'
+ck_cost_scale:
+  source: own
+  prose: 'The cost scales like every amount in the recipe: {cost} × {factor} = {answer}.'
+  hint: 'Multiply the cost by the scale factor.'
+ck_meal_need:
+  source: own
+  prose: 'Scale the {food}: {lb} pounds × {want} ÷ {serves} = {need} pounds.'
+  hint: 'How much {food} for everyone? Scale the recipe''s amount by the people you are cooking for over the servings it makes.'
+ck_meal_bags:
+  source: own
+  prose: 'You can only buy whole bags, so {need} pounds means buying {boxes} bags.'
+  hint: 'Bags are whole. Will a smaller number of bags be enough?'
+ck_meal_cost:
+  source: own
+  prose: 'Price the bags: {boxes} × {box} = {answer}.'
+  hint: 'Multiply the number of bags by the price of one bag.'

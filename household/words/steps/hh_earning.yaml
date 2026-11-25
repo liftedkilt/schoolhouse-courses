@@ -1,0 +1,36 @@
+hh_pay_times:
+  source: own
+  prose: 'Pay is hours times the rate: {hours} × {rate} = {answer}.'
+  hint: 'Multiply the hours, the half hour included, by the hourly rate.'
+hh_ot_base:
+  source: own
+  prose: 'The first 40 hours are at the usual rate: 40 × {rate} = {base}.'
+  hint: 'Pay the first 40 hours at the usual rate.'
+hh_ot_extra:
+  source: own
+  prose: 'The other {extra} hours are at time and a half, 1.5 × {rate} = {ot_rate} an hour: {extra} × {ot_rate} = {ot}.'
+  hint: 'How many hours are past 40? They are paid at 1.5 times the rate.'
+hh_ot_total:
+  source: own
+  prose: 'Add the two parts: {base} + {ot} = {answer}.'
+  hint: 'Add the pay for the first 40 hours and the overtime pay.'
+hh_fica:
+  source: own
+  prose: '7.65% of {gross} is {gross} × 0.0765 = {fica}, rounded to the cent.'
+  hint: 'Write 7.65% as a decimal, 0.0765, and multiply the gross pay by it.'
+hh_deductions_add:
+  source: own
+  prose: 'Add up every deduction: {fica} + {tax} + {health} = {total_off}.'
+  hint: 'List every amount that comes out of the pay, and add them.'
+hh_take_home:
+  source: own
+  prose: 'Take the deductions from the gross pay: {gross} − {total_off} = {answer}.'
+  hint: 'Take-home pay is gross pay minus all the deductions.'
+hh_period_year:
+  source: own
+  prose: 'Go through a whole year: {from} {from_word} is {from} × {many} = {yearly_total} a year.'
+  hint: 'Months and weeks don''t divide evenly. Work out the pay for a whole year first.'
+hh_period_to:
+  source: own
+  prose: 'Then share the year out: {yearly_total} ÷ {split} = {answer} {to_word}.'
+  hint: 'Divide the year''s pay into the periods you want.'

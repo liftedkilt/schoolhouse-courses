@@ -1,0 +1,36 @@
+name: hh_month_project
+skill: hh_month_project
+params:
+  take: { int: [36, 80] }
+  rp: { pick: ["25", "30", "35"] }
+  elec: { decimal: { range: ["45.00", "160.00"], step: "0.20" } }
+  groc: { int: [12, 30] }
+  card: { pick: ["25", "40", "50", "75", "100"] }
+where:
+  - take * 50 * (100 - rp) / 100 - elec - groc * 20 - card > 100
+let:
+  pay: take * 50
+  rent: pay * rp / 100
+  food: groc * 5 * 4
+  weekly: groc * 5
+  out: rent + elec + food + card
+  left: pay - out
+statement:
+  kind: statement.word@1
+  template: month_plan
+  text: "Take-home pay this month is {pay|money}. Rent is {rp}% of it. The electric bill is {elec|money}. Groceries are {weekly|money} a week for 4 weeks. The card payment is {card|money}. What is left?"
+  instruction: "Give the amount in dollars and cents."
+  quantities: [pay, rp, elec, weekly, card]
+answer:
+  kind: answer.numeric@1
+  value: left
+  money: true
+mistakes:
+  - { tag: took_rent_as_dollars, value: pay - rp - elec - food - card }
+steps:
+  - { kind: hh_mp_rent, working: "{pay|money} × {rp}% = {rent|money}", result: rent, values: [rp], words: ["pay|money", "rent|money"] }
+  - { kind: hh_mp_food, working: "{weekly|money} × 4 = {food|money}", result: food, words: ["weekly|money", "food|money"] }
+  - { kind: hh_mp_out, working: "{rent|money} + {elec|money} + {food|money} + {card|money} = {out|money}", result: out, words: ["rent|money", "elec|money", "food|money", "card|money", "out|money"] }
+  - { kind: hh_mp_left, working: "{pay|money} − {out|money} = {answer|money}", result: left, words: ["pay|money", "out|money", "answer|money"] }
+examples:
+  - { take: "48", rp: "35", elec: "101.60", groc: "17", card: "50" }

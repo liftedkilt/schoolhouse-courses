@@ -1,0 +1,102 @@
+skills:
+  - id: rp_percent_meaning
+    title: "Write a percent as a decimal"
+    name: "Percent as a decimal"
+    course: ratio_percent
+    unit: rp_percent
+    grade: "6"
+    status: live
+    prerequisites: [rp_ratio_language]
+    generator: rp_percent_meaning
+    example_count: 1
+    answer_form: "decimal"
+    misconceptions: [moved_point_one_place, moved_point_three_places]
+    intro: "Percent means out of a hundred. To write a percent as a decimal, divide by 100: the digits move two places to the right of the point."
+    intro_source: own
+  - id: rp_percent_of
+    title: "Find a percent of a number"
+    name: "Percent of a number"
+    course: ratio_percent
+    unit: rp_percent
+    grade: "6"
+    status: live
+    prerequisites: [rp_percent_meaning]
+    generator: rp_percent_of
+    example_count: 1
+    answer_form: "number"
+    interference: rp_percent_problem_types
+    misconceptions: [moved_point_one_place]
+    intro: "To find a percent of a number, write the percent as a decimal and multiply."
+    intro_source: own
+  - id: rp_percent_what_percent
+    title: "Find what percent one number is of another"
+    name: "What percent?"
+    course: ratio_percent
+    unit: rp_percent
+    grade: "6"
+    status: live
+    prerequisites: [rp_percent_of]
+    generator: rp_percent_what_percent
+    example_count: 1
+    answer_form: "percent"
+    interference: rp_percent_problem_types
+    misconceptions: [inverted_ratio]
+    intro: "Divide the part by the whole, then write the answer out of a hundred."
+    intro_source: own
+  - id: rp_percent_find_whole
+    title: "Find the whole when a percent of it is known"
+    name: "Find the whole"
+    course: ratio_percent
+    unit: rp_percent
+    grade: "7"
+    status: live
+    prerequisites: [rp_percent_what_percent]
+    generator: rp_percent_find_whole
+    example_count: 1
+    answer_form: "number"
+    interference: rp_percent_problem_types
+    misconceptions: [took_percent_of_part]
+    intro: "If a percent of a number is known, divide by that percent written as a decimal to get back to the whole."
+    intro_source: own
+  - id: rp_percent_increase_decrease
+    title: "Increase or decrease an amount by a percent"
+    name: "Percent up or down"
+    course: ratio_percent
+    unit: rp_percent
+    grade: "7"
+    status: live
+    prerequisites: [rp_percent_of]
+    generator: rp_percent_increase_decrease
+    example_count: 1
+    answer_form: "money"
+    misconceptions: [gave_change_only, wrong_direction]
+    intro: "Find the change as a percent of the amount, then add it for an increase or take it away for a decrease."
+    intro_source: own
+  - id: rp_percent_change
+    title: "Find the percent increase from an old and a new amount"
+    name: "Percent change"
+    course: ratio_percent
+    unit: rp_percent
+    grade: "7"
+    status: live
+    prerequisites: [rp_percent_what_percent, rp_percent_increase_decrease]
+    generator: rp_percent_change
+    example_count: 1
+    answer_form: "percent"
+    misconceptions: [used_new_as_base, difference_as_percent]
+    intro: "The change is the new amount minus the old one. Divide it by the old amount, not the new one."
+    intro_source: own
+  - id: rp_successive_percent
+    title: "Apply two percent discounts one after the other"
+    name: "Two discounts"
+    course: ratio_percent
+    unit: rp_percent
+    grade: "7"
+    status: live
+    prerequisites: [rp_percent_change]
+    generator: rp_successive_percent
+    example_count: 1
+    answer_form: "money"
+    misconceptions: [added_percents]
+    intro: "The second discount is taken from the new price, not the original one, so two discounts are less than their sum."
+    intro_source: own

@@ -1,0 +1,26 @@
+name: rp_simple_interest
+skill: rp_simple_interest
+params:
+  principal: { pick: ["200", "300", "400", "500", "600", "800", "1000", "1200", "1500", "2000"] }
+  r: { pick: ["2", "3", "4", "5", "6"] }
+  t: { int: [2, 5] }
+let:
+  year: principal * pct(r)
+statement:
+  kind: statement.word@1
+  template: simple_interest
+  text: "${principal|comma} is saved at {r}% a year simple interest for {t} years. How much interest does it earn?"
+  instruction: "Give the interest in dollars and cents."
+  quantities: [principal, r, t]
+answer:
+  kind: answer.numeric@1
+  value: year * t
+  money: true
+mistakes:
+  - { tag: one_year_only, value: year }
+  - { tag: rate_as_whole, value: "principal * r * t" }
+steps:
+  - { kind: rp_si_year, working: "{r}% of ${principal|comma} = {year|money}", result: year, values: [r], words: ["principal|comma", "year|money"] }
+  - { kind: rp_si_years, working: "{year|money} × {t} = {answer|money}", result: year * t, values: [t], words: ["year|money", "answer|money"] }
+examples:
+  - { principal: "500", r: "4", t: "3" }

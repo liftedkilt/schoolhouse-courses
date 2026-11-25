@@ -1,0 +1,26 @@
+name: rp_tip
+skill: rp_tip
+params:
+  bill: { decimal: { range: ["12.00", "90.00"], step: "0.05" } }
+  p: { pick: ["15", "18", "20", "25"] }
+let:
+  pd: pct(p)
+  exact: bill * pd
+  tip: cents(exact)
+statement:
+  kind: statement.word@1
+  template: tip
+  text: "The bill is {bill|money}. How much is a tip of {p}%?"
+  instruction: "Give the tip in dollars and cents, rounded to the nearest cent."
+  quantities: [p, bill]
+answer:
+  kind: answer.numeric@1
+  value: tip
+  money: true
+mistakes:
+  - { tag: moved_point_one_place, value: "cents(bill * p / 10)" }
+steps:
+  - { kind: rp_tip_multiply, working: "{bill|money} × {pd|dec} = {exact|dec}", result: exact, values: [p], words: ["bill|money", "pd|dec", "exact|dec"] }
+  - { kind: rp_tip_round, working: "{exact|dec} → {answer|money}", result: tip, words: ["exact|dec", "answer|money"] }
+examples:
+  - { bill: "42.50", p: "18" }

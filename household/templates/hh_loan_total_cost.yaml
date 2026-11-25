@@ -1,0 +1,28 @@
+name: hh_loan_total_cost
+skill: hh_loan_total_cost
+params:
+  pay: { int: [90, 480] }
+  months: { pick: ["24", "36", "48", "60"] }
+  share: { pick: ["80", "84", "88", "92"] }
+  what: { pick: [car, motorbike, furniture, laptop] }
+let:
+  paid: pay * months
+  borrowed: round_down(paid * share / 100, 500)
+  cost: paid - borrowed
+statement:
+  kind: statement.word@1
+  template: loan_cost
+  text: "A {borrowed|money} {what} loan is paid off at {pay|money} a month for {months} months. How much more than {borrowed|money} is paid in all?"
+  instruction: "Give the amount in dollars and cents."
+  quantities: [borrowed, pay, months]
+answer:
+  kind: answer.numeric@1
+  value: cost
+  money: true
+mistakes:
+  - { tag: gave_total_paid, value: paid }
+steps:
+  - { kind: hh_lc_paid, working: "{pay|money} × {months} = {paid|money}", result: paid, values: [months], words: ["pay|money", "paid|money"] }
+  - { kind: hh_lc_cost, working: "{paid|money} − {borrowed|money} = {answer|money}", result: cost, words: ["paid|money", "borrowed|money", "answer|money"] }
+examples:
+  - { pay: "240", months: "48", share: "88", what: car }

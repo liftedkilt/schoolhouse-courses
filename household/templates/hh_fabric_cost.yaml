@@ -1,0 +1,24 @@
+name: hh_fabric_cost
+skill: hh_fabric_cost
+params:
+  yd: { fraction: { wholes: [1, 4], dens: [2, 4, 8] }, d1: { fraction: { wholes: [1, 3], dens: [2, 4] } } }
+  price: { decimal: { range: ["4.00", "16.00"], step: "0.08" } }
+  cloth: { pick: [cotton, flannel, denim, fleece, linen] }
+let:
+  cost: yd * price
+statement:
+  kind: statement.word@1
+  template: fabric_cost
+  text: "At the fabric shop, {cloth} is {price|money} a yard. You buy {yd} yards. What does it cost?"
+  instruction: "Give the cost in dollars and cents."
+  quantities: [price, yd]
+answer:
+  kind: answer.numeric@1
+  value: cost
+  money: true
+mistakes:
+  - { tag: whole_yards_only, value: whole(yd) * price }
+steps:
+  - { kind: hh_fab_times, working: "{price|money} × {yd} = {answer|money}", result: cost, words: ["price|money", yd, "answer|money"] }
+examples:
+  - { yd: "2 3/4", price: "8.40", cloth: cotton }

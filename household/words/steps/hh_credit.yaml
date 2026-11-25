@@ -1,0 +1,56 @@
+hh_loan_year:
+  source: own
+  prose: 'One year of interest is {r}% of {principal}: {principal} × {rd} = {year}.'
+  hint: 'Find one year''s interest: the rate as a decimal times the amount borrowed.'
+hh_loan_years:
+  source: own
+  prose: 'Simple interest is the same every year, so {t} years is {year} × {t} = {interest}.'
+  hint: 'How many years is the loan? Multiply one year''s interest by that.'
+hh_loan_total:
+  source: own
+  prose: 'You repay what you borrowed plus the interest: {principal} + {interest} = {answer}.'
+  hint: 'Add the interest to the amount borrowed.'
+hh_comp_factor:
+  source: own
+  prose: 'Each year the balance grows by {r}%, so it is multiplied by 1 + {rd} = {g}.'
+  hint: 'What does the balance get multiplied by each year?'
+hh_comp_grow:
+  source: own
+  prose: 'Multiply by {g} once for each of the {n} years: {principal} × {g}^{n} = {answer}, rounded to the cent at the end.'
+  hint: 'Multiply by the growth factor again for every year, then round to the cent.'
+hh_card_interest:
+  source: own
+  prose: 'The interest is {rate}% of {bal}: {interest}, to the nearest cent.'
+  hint: 'Find the month''s interest on the balance first.'
+hh_card_owed:
+  source: own
+  prose: 'The interest is added to what you owe: {bal} + {interest} = {owed}.'
+  hint: 'Add the interest to the balance.'
+hh_card_pay:
+  source: own
+  prose: 'Then your payment comes off: {owed} − {pay} = {answer}.'
+  hint: 'Take the payment off what you owe now.'
+hh_lc_paid:
+  source: own
+  prose: 'Add up every payment: {pay} × {months} = {paid} paid in all.'
+  hint: 'What is paid altogether? Multiply the monthly payment by the months.'
+hh_lc_cost:
+  source: own
+  prose: 'The cost of borrowing is what you paid beyond the loan: {paid} − {borrowed} = {answer}.'
+  hint: 'Take the amount borrowed away from the total paid.'
+hh_mp_rent:
+  source: own
+  prose: 'Rent is {rp}% of {pay}: {rent}.'
+  hint: 'Rent is a percent of the pay, not dollars. Work it out first.'
+hh_mp_food:
+  source: own
+  prose: 'Groceries for 4 weeks: {weekly} × 4 = {food}.'
+  hint: 'Groceries are by the week. What do 4 weeks cost?'
+hh_mp_out:
+  source: own
+  prose: 'Everything going out: {rent} + {elec} + {food} + {card} = {out}.'
+  hint: 'Add every bill and budget line for the month.'
+hh_mp_left:
+  source: own
+  prose: 'Take it all from the pay: {pay} − {out} = {answer} left.'
+  hint: 'Take the total going out away from the take-home pay.'

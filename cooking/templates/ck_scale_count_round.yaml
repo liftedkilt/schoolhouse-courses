@@ -1,0 +1,36 @@
+name: ck_scale_count_round
+skill: ck_scale_count_round
+params:
+  serves: { pick: ["4", "6", "8", "12"] }
+  want: { int: [3, 20] }
+  eggs: { int: [2, 5] }
+  thing: { pick: [eggs, bananas, apples, onions, potatoes] }
+where:
+  - want != serves
+  - frac(eggs * want / serves) != 0
+  - frac(eggs * want / serves) != 1/2
+  - eggs != serves
+  - eggs * want / serves >= 1
+let:
+  exact: eggs * want / serves
+  factor: want / serves
+  rounded: round(exact, 1)
+statement:
+  kind: statement.word@1
+  template: scale_count
+  text: "A recipe for {serves} uses {eggs} {thing}. You are making it for {want}. How many {thing} do you use, to the nearest whole one?"
+  instruction: "Give a whole number."
+  quantities: [serves, eggs, want]
+answer:
+  kind: answer.count@1
+  value: exact
+  round: nearest
+  units: [eggs, bananas, apples, onions, potatoes]
+mistakes:
+  - { tag: added_difference, value: "eggs + (want - serves)" }
+  - { tag: rounded_up_always, value: ceil(exact) }
+steps:
+  - { kind: ck_count_scale, working: "{eggs} × {want} ÷ {serves} = {exact}", result: exact, values: [eggs, want, serves], words: ["exact|mixed", thing] }
+  - { kind: ck_count_round, working: "{exact} ≈ {rounded}", result: rounded, words: ["exact|mixed", thing] }
+examples:
+  - { serves: "6", want: "10", eggs: "2", thing: eggs }

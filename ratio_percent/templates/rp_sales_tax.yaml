@@ -1,0 +1,25 @@
+name: rp_sales_tax
+skill: rp_sales_tax
+params:
+  price: { decimal: { range: ["4.00", "60.00"], step: "0.25" } }
+  rate: { pick: ["5", "6", "7.5", "8", "8.25"] }
+let:
+  tax: cents(price * pct(rate))
+statement:
+  kind: statement.word@1
+  template: sales_tax
+  text: "The sales tax is {rate|dec}% on a purchase of {price|money}. What is the total?"
+  instruction: "Give the total in dollars and cents, with the tax rounded to the nearest cent."
+  quantities: [price, rate]
+answer:
+  kind: answer.numeric@1
+  value: price + tax
+  money: true
+mistakes:
+  - { tag: gave_change_only, value: tax }
+  - { tag: tax_as_whole_dollars, value: "price + rate" }
+steps:
+  - { kind: rp_tax_amount, working: "{rate|dec}% of {price|money} = {tax|money}", result: tax, words: ["rate|dec", "price|money", "tax|money"] }
+  - { kind: rp_tax_total, working: "{price|money} + {tax|money} = {answer|money}", result: price + tax, words: ["price|money", "tax|money", "answer|money"] }
+examples:
+  - { price: "24.00", rate: "7.5" }

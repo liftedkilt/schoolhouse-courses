@@ -1,0 +1,28 @@
+name: rp_percent_word_problems
+skill: rp_percent_word_problems
+params:
+  cost: { pick: ["20", "30", "40", "50", "60", "80"] }
+  up: { pick: ["20", "25", "40", "50"] }
+  down: { pick: ["10", "20", "25"] }
+where:
+  - up != down
+  - den(cost * (100 + up) / 100 * (100 - down) / 100 * 100) == 1
+let:
+  marked: cost * (1 + pct(up))
+statement:
+  kind: statement.word@1
+  template: markup_then_sale
+  text: "A store buys a jacket for ${cost} and marks the price up by {up}%. Later it is {down}% off. What is the sale price?"
+  instruction: "Give the price in dollars and cents."
+  quantities: [cost, up, down]
+answer:
+  kind: answer.numeric@1
+  value: marked * (1 - pct(down))
+  money: true
+mistakes:
+  - { tag: added_percents, value: "cost * (1 + pct(up - down))" }
+steps:
+  - { kind: rp_mark_up, working: "${cost} + {up}% = {marked|money}", result: marked, values: [cost, up], words: ["marked|money"] }
+  - { kind: rp_mark_down, working: "{marked|money} − {down}% = {answer|money}", result: marked * (1 - pct(down)), values: [down], words: ["marked|money", "answer|money"] }
+examples:
+  - { cost: "30", up: "40", down: "25" }

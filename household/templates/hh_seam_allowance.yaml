@@ -1,0 +1,29 @@
+name: hh_seam_allowance
+skill: hh_seam_allowance
+params:
+  fin: { fraction: { wholes: [8, 24], dens: [2, 4, 8] }, d1: { int: [8, 24] } }
+  sa: { pick: ["1/4", "3/8", "1/2", "5/8"] }
+  thing: { pick: [panel, pocket, sleeve, cushion cover] }
+let:
+  both: sa * 2
+  cut: fin + both
+statement:
+  kind: statement.word@1
+  template: seam
+  text: "A finished {thing} is {fin} inches wide. The pattern adds a {sa} inch seam allowance on each side. How wide do you cut it?"
+  instruction: "Give the width in inches, as a mixed number."
+  quantities: [fin, sa]
+answer:
+  kind: answer.numeric@1
+  value: cut
+  allow_mixed: true
+  allow_improper: true
+  prefer_lowest_terms: true
+  units: [in, inches, '"']
+mistakes:
+  - { tag: added_once, value: fin + sa }
+steps:
+  - { kind: hh_seam_two, working: "{sa} × 2 = {both}", result: both, words: [sa, "both|mixed"] }
+  - { kind: hh_seam_add, working: "{fin} + {both} = {answer}", result: cut, words: [fin, "both|mixed"] }
+examples:
+  - { fin: "14 1/2", sa: "5/8", thing: panel }

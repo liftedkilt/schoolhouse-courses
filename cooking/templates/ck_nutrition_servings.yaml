@@ -1,0 +1,27 @@
+name: ck_nutrition_servings
+skill: ck_nutrition_servings
+params:
+  cal: { int: [8, 40] }
+  s: { fraction: { wholes: [1, 3], dens: [2, 4] }, d1: { fraction: { wholes: [1, 2], dens: [2] } } }
+  food: { pick: [cereal, crackers, granola, trail mix, pasta] }
+where:
+  - frac(cal * 10 * s) == 0
+let:
+  per: cal * 10
+  total: per * s
+statement:
+  kind: statement.word@1
+  template: label_servings
+  text: "The label on a box of {food} says one serving has {per} calories. You eat {s} servings. How many calories is that?"
+  instruction: "Give the number of calories."
+  quantities: [per, s]
+answer:
+  kind: answer.numeric@1
+  value: total
+  units: [calories]
+mistakes:
+  - { tag: added_servings, value: per + s }
+steps:
+  - { kind: ck_label_times, working: "{per} × {s} = {answer}", result: total, values: [per], words: [s] }
+examples:
+  - { cal: "24", s: "2 1/2", food: cereal }

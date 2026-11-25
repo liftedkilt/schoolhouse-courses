@@ -1,0 +1,72 @@
+skills:
+- id: hh_hourly_pay
+  title: Find pay from hours worked and an hourly rate
+  name: Hourly pay
+  course: household
+  unit: hh_earning
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_unit_price
+  generator: hh_hourly_pay
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - dropped_half_hour
+  calculator: allowed
+  intro: 'Pay for hourly work is the hours worked times the rate per hour. A half hour counts too: 0.5 of an hour.'
+  intro_source: own
+- id: hh_overtime
+  title: Pay with overtime at time and a half past 40 hours
+  name: Overtime pay
+  course: household
+  unit: hh_earning
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_hourly_pay
+  generator: hh_overtime
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - no_overtime
+  - overtime_on_all_hours
+  calculator: allowed
+  intro: 'Hours past 40 in a week are often paid at time and a half: 1.5 times the usual rate. Only the extra hours get the higher rate.'
+  intro_source: own
+- id: hh_paycheck_deductions
+  title: Work out deductions and take-home pay
+  name: Take-home pay
+  course: household
+  unit: hh_earning
+  grade: 7-8
+  status: live
+  prerequisites:
+  - hh_hourly_pay
+  generator: hh_paycheck_deductions
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - moved_point_one_place
+  - missed_a_deduction
+  calculator: allowed
+  intro: Gross pay is what you earn; take-home pay is what is left after deductions such as tax and Social Security and Medicare.
+  intro_source: own
+- id: hh_pay_periods
+  title: Convert pay between weekly, monthly and yearly
+  name: Pay periods
+  course: household
+  unit: hh_earning
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_hourly_pay
+  generator: hh_pay_periods
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - four_weeks_a_month
+  - forty_eight_weeks
+  calculator: allowed
+  intro: A year has 52 weeks and 12 months. Most months are a bit longer than 4 weeks, so to go from weeks to months, go through the year.
+  intro_source: own

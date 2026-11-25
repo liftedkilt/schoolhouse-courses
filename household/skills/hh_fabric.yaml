@@ -1,0 +1,70 @@
+skills:
+- id: hh_fabric_yards
+  title: Convert inches of fabric to yards
+  name: Inches to yards
+  course: household
+  unit: hh_fabric
+  grade: 5-6
+  status: live
+  prerequisites:
+  - hh_unit_price
+  generator: hh_fabric_yards
+  example_count: 1
+  answer_form: number, mixed allowed, yards
+  misconceptions:
+  - divided_by_twelve
+  calculator: not_yet
+  intro: Fabric is sold by the yard, and a yard is 36 inches. Add up the inches you need, then divide by 36.
+  intro_source: own
+- id: hh_seam_allowance
+  title: Add seam allowances to a finished size to get the cut size
+  name: Seam allowance
+  course: household
+  unit: hh_fabric
+  grade: '6'
+  status: live
+  prerequisites:
+  - hh_fabric_yards
+  generator: hh_seam_allowance
+  example_count: 1
+  answer_form: number, mixed allowed, inches
+  misconceptions:
+  - added_once
+  calculator: not_yet
+  intro: A seam allowance is the extra fabric at an edge that goes into the seam. A piece has two sides, so add it twice.
+  intro_source: own
+- id: hh_fabric_cost
+  title: Price fabric sold by the yard, including fractions of a yard
+  name: Fabric cost
+  course: household
+  unit: hh_fabric
+  grade: 6-7
+  status: live
+  prerequisites:
+  - hh_fabric_yards
+  - hh_hourly_pay
+  generator: hh_fabric_cost
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - whole_yards_only
+  calculator: allowed
+  intro: Fabric is priced per yard, and you can buy part of a yard. Multiply the price by the yards, the fraction too.
+  intro_source: own
+- id: hh_quilt_squares
+  title: Count the squares or pieces that tile a rectangle
+  name: Quilt squares
+  course: household
+  unit: hh_fabric
+  grade: 5-6
+  status: live
+  prerequisites:
+  - hh_seam_allowance
+  generator: hh_quilt_squares
+  example_count: 1
+  answer_form: number, whole
+  misconceptions:
+  - area_over_side
+  calculator: not_yet
+  intro: Count how many squares fit across and how many fit down, then multiply. Dividing the area by the side of one square does not work.
+  intro_source: own

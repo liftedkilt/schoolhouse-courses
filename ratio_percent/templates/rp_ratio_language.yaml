@@ -1,0 +1,30 @@
+name: rp_ratio_language
+skill: rp_ratio_language
+params:
+  a: { int: [2, 9] }
+  b: { int: [2, 9] }
+  thing: { pick: [marbles, beads, tiles, buttons] }
+where:
+  - a != b
+  - a + b != b
+let:
+  total: a + b
+statement:
+  kind: statement.word@1
+  template: ratio_parts
+  text: "A bag has {a} red {thing} and {b} blue {thing}. Which is the ratio of red to blue?"
+  instruction: "Choose one."
+  quantities: [a, b]
+answer:
+  kind: answer.choice@1
+  value: "join(':', a, b)"
+  options: ["join(':', a, b)", "join(':', b, a)", "join(':', a, total)"]
+mistakes:
+  - { tag: reversed_ratio, value: "join(':', b, a)" }
+  - { tag: part_to_whole, value: "join(':', a, total)" }
+steps:
+  - { kind: rp_ratio_order, working: "red : blue = {a} : {b}", result: "join(':', a, b)", values: [a, b], words: [thing] }
+# Choosing the ratio means the numbers of the question are in the answer.
+example_allow: [answer]
+examples:
+  - { a: "3", b: "5", thing: marbles }

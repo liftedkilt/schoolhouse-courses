@@ -1,0 +1,40 @@
+hh_unit_divide:
+  source: own
+  prose: 'Price per ounce is dollars divided by ounces: {price} ÷ {size} = {answer} an ounce.'
+  hint: 'A unit price is the price of one. Divide the price by the number of ounces.'
+hh_unit_each_small:
+  source: own
+  prose: 'The smaller size: {small_price} ÷ {small} = {small_each} for one of its {unit}.'
+  hint: 'Work out the price of one unit in the smaller size.'
+hh_unit_each_big:
+  source: own
+  prose: 'The bigger size: {big_price} ÷ {big} = {big_each} for each.'
+  hint: 'Now the price of one unit in the bigger size.'
+hh_pick_lower:
+  source: own
+  prose: 'The {cheaper} size costs less for one of the {unit}, so {better} {unit} is the better buy.'
+  hint: 'Which unit price is lower?'
+hh_coupon_price:
+  source: own
+  prose: 'With the coupon: {price} − {coupon} = {with_coupon}.'
+  hint: 'Take the coupon''s dollars off the price.'
+hh_sale_price:
+  source: own
+  prose: 'In the sale, {pct}% of {price} is {off}, so you pay {price} − {off} = {with_sale}.'
+  hint: 'Find the percent of the price that comes off, then take it away.'
+hh_deal_pick:
+  source: own
+  prose: 'You pay {with_coupon} with the coupon and {with_sale} in the sale, so the better deal is the {best}.'
+  hint: 'Which final price is lower?'
+hh_receipt_tax:
+  source: own
+  prose: 'Only the household goods are taxed: {rate}% of {taxable} is {tax}.'
+  hint: 'Find the tax on the taxed items only, rounded to the nearest cent.'
+hh_receipt_add:
+  source: own
+  prose: 'Add the taxed goods, their tax and the groceries: {taxable} + {tax} + {food} = {answer}.'
+  hint: 'Add everything on the receipt, the tax too.'
+hh_change_sub:
+  source: own
+  prose: 'Change is what you paid minus the cost: {paid} − {cost} = {answer}. Line up the points, and borrow a dollar for the cents.'
+  hint: 'Take the cost away from what you paid. The cents need a dollar borrowed.'

@@ -1,0 +1,27 @@
+name: hh_change_making
+skill: hh_change_making
+params:
+  paid: { pick: ["10", "20", "50"] }
+  cost: { decimal: { range: ["1.01", "49.99"], step: "0.01" } }
+where:
+  - cost < paid
+  - cost > paid / 3
+  - frac(cost) != 0
+let:
+  change: paid - cost
+statement:
+  kind: statement.word@1
+  template: change
+  text: "You pay with a {paid}-dollar bill for something that costs {cost|money}. How much change do you get?"
+  instruction: "Give the change in dollars and cents."
+  quantities: [paid, cost]
+answer:
+  kind: answer.numeric@1
+  value: change
+  money: true
+mistakes:
+  - { tag: no_borrow_from_dollars, value: change + 1 }
+steps:
+  - { kind: hh_change_sub, working: "{paid|money} − {cost|money} = {answer|money}", result: change, words: ["paid|money", "cost|money", "answer|money"] }
+examples:
+  - { paid: "20", cost: "13.47" }

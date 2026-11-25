@@ -1,0 +1,32 @@
+name: ck_scale_to_measure
+skill: ck_scale_to_measure
+params:
+  c: { fraction: { wholes: [0, 2], dens: [8] }, d1: { fraction: { wholes: [0, 0], dens: [8] } }, d3: { fraction: { wholes: [0, 2], dens: [8, 16] } } }
+  ing: { pick: [oil, milk, honey, cream, broth] }
+where:
+  - den(frac(c)) in [8, 16]
+let:
+  per: table('per', 'tbsp_cup')
+  part: frac(c)
+  cups: whole(c)
+  result: part * per
+  has_whole: whole(c) > 0
+  unit: "if(c <= 1, 'cup', 'cups')"
+  lead: "if(has_whole, join('', 'The whole cups you measure with the cup, and ', part, ' cup is left over. '), '')"
+  ask: "if(has_whole, join('', 'You fill the 1-cup measure ', cups, if(cups > 1, ' times', ' time'), '. How many tablespoons do you add?'), 'How many tablespoons is that?')"
+statement:
+  kind: statement.word@1
+  template: cups_to_tbsp
+  text: "A scaled recipe needs {c} {unit} of {ing}, and no measuring cup is that size. {ask}"
+  instruction: "Give the number of tablespoons. 1 cup is 16 tablespoons."
+  quantities: [c]
+answer:
+  kind: answer.numeric@1
+  value: result
+mistakes:
+  - { tag: wrong_factor, value: part * 8 }
+  - { tag: converted_whole_too, value: c * per }
+steps:
+  - { kind: ck_part_to_tbsp, working: "{part} × {per} = {answer}", result: result, values: [per], words: ["part|frac", lead] }
+examples:
+  - { c: "1 1/8", ing: oil }

@@ -1,0 +1,35 @@
+name: ck_meal_project
+skill: ck_meal_project
+params:
+  serves: { pick: ["4", "6", "8"] }
+  want: { pick: ["10", "12", "16", "20", "24", "30"] }
+  lb: { fraction: { wholes: [1, 2], dens: [2, 4] } }
+  box: { decimal: { range: ["1.29", "2.49"], step: "0.10" } }
+  food: { pick: [pasta, rice, potatoes] }
+where:
+  - want > serves
+  - frac(lb * want / serves) != 0
+let:
+  need: lb * want / serves
+  boxes: ceil(need)
+  result: boxes * box
+  factor: want / serves
+statement:
+  kind: statement.word@1
+  template: meal_plan
+  text: "You are cooking for {want} people. The recipe serves {serves} and uses {lb} pounds of {food}. The {food} comes in 1-pound bags at {box|money} each, and you can only buy whole bags. What do you spend on {food}?"
+  instruction: "Give the cost in dollars and cents."
+  quantities: [want, serves, lb, box]
+answer:
+  kind: answer.numeric@1
+  value: result
+  money: true
+mistakes:
+  - { tag: rounded_down_packages, value: floor(need) * box }
+  - { tag: priced_exact_amount, value: need * box }
+steps:
+  - { kind: ck_meal_need, working: "{lb} × {want} ÷ {serves} = {need}", result: need, values: [want, serves], words: [lb, "need|mixed", food] }
+  - { kind: ck_meal_bags, working: "{need} → {boxes} bags", result: boxes, values: [boxes], words: ["need|mixed"] }
+  - { kind: ck_meal_cost, working: "{boxes} × {box|money} = {answer|money}", result: result, values: [boxes], words: ["box|money", "answer|money"] }
+examples:
+  - { serves: "4", want: "12", lb: "1 1/2", box: "1.79", food: pasta }

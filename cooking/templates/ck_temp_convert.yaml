@@ -1,0 +1,40 @@
+name: ck_temp_convert
+skill: ck_temp_convert
+params:
+  dir: { pick: [f_c, c_f] }
+  f: { pick: ["275", "300", "325", "350", "375", "400", "425", "450"] }
+  c: { pick: ["140", "150", "160", "170", "180", "190", "200", "210", "220", "230"] }
+let:
+  to_c: "dir == 'f_c'"
+  from: "if(to_c, f, c)"
+  from_u: "if(to_c, '°F', '°C')"
+  to_u: "if(to_c, 'Celsius', 'Fahrenheit')"
+  formula: "if(to_c, 'C = (F − 32) × 5/9', 'F = C × 9/5 + 32')"
+  first: "if(to_c, f - 32, c * 9 / 5)"
+  exact: "if(to_c, (f - 32) * 5 / 9, c * 9 / 5 + 32)"
+  result: round(exact, 1)
+  first_word: "if(to_c, 'Take away 32', 'Multiply by 9/5')"
+  second_word: "if(to_c, 'multiply by 5/9', 'add 32')"
+  op1: "if(to_c, '−', '×')"
+  n1: "if(to_c, 32, 9 / 5)"
+  op2: "if(to_c, '×', '+')"
+  n2: "if(to_c, 5 / 9, 32)"
+statement:
+  kind: statement.word@1
+  template: oven_temp
+  text: "An oven is set to {from}{from_u}. What is that in degrees {to_u}? Use {formula}."
+  instruction: "Round to the nearest degree."
+  quantities: [from]
+answer:
+  kind: answer.numeric@1
+  value: result
+  units: [degrees, "°", "°C", "°F", C, F]
+mistakes:
+  - { tag: forgot_32, value: "round(if(to_c, f * 5 / 9, c * 9 / 5), 1)" }
+  - { tag: subtracted_after, value: "if(to_c, round(f * 5 / 9 - 32, 1), result)" }
+  - { tag: used_five_ninths, value: "if(to_c, result, round(c * 5 / 9 + 32, 1))" }
+steps:
+  - { kind: ck_temp_first, working: "{from} {op1} {n1} = {first}", result: first, values: [from], words: [first_word, op1, "n1|frac", "first|mixed"] }
+  - { kind: ck_temp_second, working: "{first} {op2} {n2} = {exact} ≈ {answer}", result: result, words: [second_word, op2, "n2|frac", "first|mixed", "exact|mixed"] }
+examples:
+  - { dir: f_c, f: "350", c: "200" }

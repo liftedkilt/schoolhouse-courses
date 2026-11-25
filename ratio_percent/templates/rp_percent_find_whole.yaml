@@ -1,0 +1,27 @@
+name: rp_percent_find_whole
+skill: rp_percent_find_whole
+params:
+  p: { pick: ["10", "20", "25", "30", "40", "50", "60", "75"] }
+  whole: { pick: ["40", "60", "80", "120", "150", "160", "200", "240", "300"] }
+where:
+  - den(whole * p / 100) == 1
+let:
+  pd: pct(p)
+  part: whole * pd
+statement:
+  kind: statement.word@1
+  template: find_whole
+  text: "{p}% of a number is {part}. What is the number?"
+  instruction: "Give the number."
+  quantities: [p, part]
+answer:
+  kind: answer.numeric@1
+  value: whole
+  allow_decimal: true
+mistakes:
+  - { tag: took_percent_of_part, value: "part * pd" }
+steps:
+  - { kind: rp_whole_as_dec, working: "{p}% = {pd|dec}", result: pd, values: [p], words: ["pd|dec"] }
+  - { kind: rp_whole_divide, working: "{part} ÷ {pd|dec} = {answer}", result: whole, values: [part], words: ["pd|dec"] }
+examples:
+  - { p: "30", whole: "150" }

@@ -1,0 +1,26 @@
+name: hh_budget_percent
+skill: hh_budget_percent
+params:
+  income: { int: [36, 110] }
+  p: { pick: ["5", "10", "12", "15", "20", "25", "30", "35"] }
+  line: { pick: [rent, savings, groceries, transport, fun money] }
+let:
+  inc: income * 50
+  amount: inc * p / 100
+  pd: p / 100
+statement:
+  kind: statement.word@1
+  template: budget_percent
+  text: "A budget plans {p}% of a {inc|money} monthly income for {line}. How much is that?"
+  instruction: "Give the amount in dollars and cents."
+  quantities: [p, inc]
+answer:
+  kind: answer.numeric@1
+  value: amount
+  money: true
+mistakes:
+  - { tag: moved_point_one_place, value: inc * p / 10 }
+steps:
+  - { kind: hh_pct_of, working: "{inc|money} × {pd|dec} = {answer|money}", result: amount, values: [p], words: ["inc|money", "pd|dec", "answer|money"] }
+examples:
+  - { income: "56", p: "30", line: rent }

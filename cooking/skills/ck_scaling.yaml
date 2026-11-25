@@ -1,0 +1,153 @@
+skills:
+- id: ck_scale_whole
+  title: Double or triple a recipe amount
+  name: Double or triple
+  course: cooking
+  unit: ck_scaling
+  grade: '5'
+  status: live
+  prerequisites:
+  - ck_measure_combine
+  generator: ck_scale_whole
+  example_count: 1
+  answer_form: number, mixed allowed, cups
+  misconceptions:
+  - multiplied_both_terms
+  - doubled_whole_only
+  interference: scale_direction
+  calculator: not_yet
+  intro: Doubling a recipe means every amount is multiplied by 2; tripling, by 3. Multiply the whole amount, the fraction part too.
+  intro_source: own
+- id: ck_scale_half
+  title: Halve a recipe amount
+  name: Halve an amount
+  course: cooking
+  unit: ck_scaling
+  grade: '5'
+  status: live
+  prerequisites:
+  - ck_measure_combine
+  generator: ck_scale_half
+  example_count: 1
+  answer_form: number, mixed allowed, cups
+  misconceptions:
+  - halved_denominator
+  - halved_whole_only
+  interference: scale_direction
+  calculator: not_yet
+  intro: Halving a recipe means every amount is multiplied by 1/2. Half of a fraction has a denominator twice as big.
+  intro_source: own
+- id: ck_scale_factor
+  title: Find the scale factor from the servings a recipe makes and the servings wanted
+  name: Scale factor
+  course: cooking
+  unit: ck_scaling
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_scale_whole
+  - ck_scale_half
+  generator: ck_scale_factor
+  example_count: 1
+  answer_form: number, fraction or mixed
+  misconceptions:
+  - added_difference
+  - inverted_factor
+  calculator: not_yet
+  intro: 'To feed a different number of people, multiply every amount by the same number, the scale factor: the servings you want divided by the servings the recipe makes.'
+  intro_source: own
+- id: ck_scale_amount
+  title: Scale an ingredient amount by a fractional factor
+  name: Scale an amount
+  course: cooking
+  unit: ck_scaling
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_scale_factor
+  generator: ck_scale_amount
+  example_count: 2
+  answer_form: number, mixed allowed, cups
+  misconceptions:
+  - added_difference
+  - inverted_factor
+  - multiplied_by_want
+  calculator: not_yet
+  intro: 'Find the scale factor first, then multiply the amount by it. Adding the extra servings to the amount does not work: amounts grow by multiplying.'
+  intro_source: own
+- id: ck_scale_to_measure
+  title: Turn a scaled amount into measures a kitchen has
+  name: Cups to tablespoons
+  course: cooking
+  unit: ck_scaling
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_scale_amount
+  - ck_spoons_cups
+  generator: ck_scale_to_measure
+  example_count: 1
+  answer_form: number, whole
+  misconceptions:
+  - wrong_factor
+  - converted_whole_too
+  calculator: not_yet
+  intro: 'Amounts like 3/8 cup have no measuring cup. A cup is 16 tablespoons, so 1/8 cup is 2 tablespoons: change the fraction of a cup into tablespoons.'
+  intro_source: own
+- id: ck_scale_count_round
+  title: Scale a counted ingredient and round it to a whole
+  name: Scale and round
+  course: cooking
+  unit: ck_scaling
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_scale_amount
+  generator: ck_scale_count_round
+  example_count: 1
+  answer_form: number, whole, nearest
+  misconceptions:
+  - added_difference
+  - rounded_up_always
+  interference: rounding_direction
+  calculator: not_yet
+  intro: Eggs come whole. Scale the number of eggs like any amount, then round to the nearest whole egg.
+  intro_source: own
+- id: ck_scale_by_yield
+  title: 'Scale by yield: weight per piece, or pieces per batch'
+  name: Scale by yield
+  course: cooking
+  unit: ck_scaling
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_scale_amount
+  generator: ck_scale_by_yield
+  example_count: 1
+  answer_form: number, grams
+  misconceptions:
+  - added_difference
+  - inverted_factor
+  calculator: allowed
+  intro: A recipe that makes a number of pieces tells you how much goes into each one. Find the amount for one piece, then multiply by how many you want.
+  intro_source: own
+- id: ck_scale_word_problems
+  title: Scale a whole recipe in a word problem, choosing the steps
+  name: Scaling word problems
+  course: cooking
+  unit: ck_scaling
+  grade: '6'
+  status: live
+  prerequisites:
+  - ck_scale_to_measure
+  - ck_scale_count_round
+  - ck_scale_by_yield
+  generator: ck_scale_word_problems
+  example_count: 1
+  answer_form: number, mixed allowed, cups
+  misconceptions:
+  - added_difference
+  - inverted_factor
+  calculator: not_yet
+  intro: Read what the recipe makes and what you need. Find how many times bigger or smaller the batch is, then scale the amount.
+  intro_source: own

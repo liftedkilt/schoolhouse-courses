@@ -1,0 +1,52 @@
+rp_pct_to_dec:
+  source: own
+  prose: 'Percent means out of a hundred, so {p}% is {p} ÷ 100 = {answer}.'
+  hint: 'Divide by 100: move the digits two places past the decimal point.'
+rp_pct_as_dec:
+  source: own
+  prose: 'Write the percent as a decimal: {p}% is {pd}.'
+  hint: 'What is {p}% as a decimal? Divide by 100.'
+rp_pct_multiply:
+  source: own
+  prose: 'Multiply: {pd} × {n} = {answer}.'
+  hint: 'Multiply the number by that decimal.'
+rp_what_divide:
+  source: own
+  prose: 'Divide the part by the whole: {part} ÷ {whole} = {frac}.'
+  hint: 'Which number is the part and which is the whole? Divide the part by the whole.'
+rp_what_hundred:
+  source: own
+  prose: 'Out of a hundred: {frac} × 100 = {answer}, so it is {answer}%.'
+  hint: 'Multiply by 100 to write it as a percent.'
+rp_whole_as_dec:
+  source: own
+  prose: 'Write the percent as a decimal: {p}% is {pd}.'
+  hint: 'What is {p}% as a decimal?'
+rp_whole_divide:
+  source: own
+  prose: 'The number times {pd} is {part}, so divide to undo it: {part} ÷ {pd} = {answer}.'
+  hint: 'Some number times {pd} gives {part}. Divide {part} by {pd}.'
+rp_updown_change:
+  source: own
+  prose: 'First find the change: {p}% of ${price} is {change}.'
+  hint: 'Find {p}% of ${price}.'
+rp_updown_apply:
+  source: own
+  prose: 'Then {verb} the change: the new price is {answer}.'
+  hint: 'The price {word}, so {verb} the change.'
+rp_change_diff:
+  source: own
+  prose: 'The price went up by ${new} − ${old} = ${diff}.'
+  hint: 'How much did the price go up by?'
+rp_change_base:
+  source: own
+  prose: 'Compare the change with the old price: {diff} ÷ {old} × 100 = {answer}, so it went up {answer}%.'
+  hint: 'Divide the change by the old price, not the new one, then multiply by 100.'
+rp_two_first:
+  source: own
+  prose: 'Take the first discount: {a}% off ${price} leaves {first}.'
+  hint: 'Work out the price after the first discount.'
+rp_two_second:
+  source: own
+  prose: 'The second discount comes off the sale price, not the first price: {b}% off {first} leaves {answer}.'
+  hint: 'Take the second discount from the new price.'

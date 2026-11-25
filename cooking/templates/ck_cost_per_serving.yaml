@@ -1,0 +1,25 @@
+name: ck_cost_per_serving
+skill: ck_cost_per_serving
+params:
+  serves: { int: [3, 10] }
+  each: { decimal: { range: ["0.85", "4.95"], step: "0.05" } }
+  dish: { pick: [chili, lasagne, fried rice, vegetable soup, tacos, pancakes] }
+let:
+  total: serves * each
+statement:
+  kind: statement.word@1
+  template: per_serving
+  text: "The ingredients for a batch of {dish} cost {total|money}. It makes {serves} servings. What does one serving cost?"
+  instruction: "Give the cost in dollars and cents."
+  quantities: [total, serves]
+  units: { total: dollars }
+answer:
+  kind: answer.numeric@1
+  value: each
+  money: true
+mistakes:
+  - { tag: multiplied_instead, value: total * serves }
+steps:
+  - { kind: ck_per_serving, working: "{total|money} ÷ {serves} = {answer|money}", result: each, values: [serves], words: ["total|money", "answer|money"] }
+examples:
+  - { serves: "6", each: "2.10", dish: chili }

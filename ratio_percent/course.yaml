@@ -1,0 +1,40 @@
+# Ratio and percent: the shared course between arithmetic and the applied
+# courses (docs/research/ratio-percent-roadmap.md). A course package: data
+# only. Build it with `go run ./cmd/coursepack -zip ratio_percent.zip
+# courses/ratio_percent` and install it in Parents › Courses.
+format: 1
+id: ratio_percent
+version: 0.2.0
+title: Ratio and percent
+summary: Ratios, rates, proportions and percent, with money, the base for cooking, household math and carpentry.
+prefixes: [rp_]
+audience: { ages: "10-16" }
+voice: voice.child_9_14@1
+licence: { text: own }
+subject_pic: assets/subject.svg
+needs:
+  - generator.template@1
+  - answer.numeric@1
+  - answer.choice@1
+  - statement.word@1
+  - voice.child_9_14@1
+  - requirement.unit_done@1
+requires:
+  all:
+    - { rule: requirement.unit_done@1, course: arithmetic, unit: decimals }
+    - { rule: requirement.unit_done@1, course: arithmetic, unit: fraction_div }
+units:
+  - { id: rp_ratio, name: "Ratio and rate", file: skills/rp_ratio.yaml }
+  - { id: rp_percent, name: "Percent", file: skills/rp_percent.yaml }
+  - { id: rp_money, name: "Percent with money", file: skills/rp_money.yaml }
+placement:
+  start_points:
+    - { key: ratio, label: "Start with ratios", note: "Writing ratios, then rates and proportions.", skill: rp_ratio_language }
+    - { key: percent, label: "Ratios are fine, start with percent", note: "Percents as decimals, percent of a number, percent change.", skill: rp_percent_meaning }
+    - { key: money, label: "Start with money and percent", note: "Tax, tips, sales and interest.", skill: rp_sales_tax }
+  default: ratio
+settings:
+  - { key: goal_minutes, type: int, min: 5, max: 60, default: 20, label: "Minutes a day" }
+tracks:
+  - { id: home, title: "Home: cooking and household", courses: [arithmetic, ratio_percent, cooking, household] }
+  - { id: shop, title: "Shop: carpentry", courses: [arithmetic, ratio_percent, carpentry] }

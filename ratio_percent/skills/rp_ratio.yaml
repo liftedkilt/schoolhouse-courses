@@ -1,0 +1,87 @@
+skills:
+  - id: rp_ratio_language
+    title: "Write a ratio from a description, in the order asked"
+    name: "Write a ratio"
+    course: ratio_percent
+    unit: rp_ratio
+    grade: "6"
+    status: live
+    root: true
+    generator: rp_ratio_language
+    example_count: 1
+    answer_form: "choice of ratio a:b"
+    misconceptions: [reversed_ratio, part_to_whole]
+    intro: "A ratio compares two amounts, written with a colon. The order matters: the first thing named comes first."
+    intro_source: own
+  - id: rp_equivalent_ratios
+    title: "Find the missing number in a pair of equivalent ratios"
+    name: "Equivalent ratios"
+    course: ratio_percent
+    unit: rp_ratio
+    grade: "6"
+    status: live
+    prerequisites: [rp_ratio_language]
+    generator: rp_equivalent_ratios
+    example_count: 1
+    answer_form: "number, whole"
+    misconceptions: [added_difference]
+    intro: "Two ratios are equivalent when both parts are multiplied by the same number. Find that number, then use it on the other part."
+    intro_source: own
+  - id: rp_unit_rate
+    title: "Find a unit rate (per one) from a total and a quantity"
+    name: "Unit rate"
+    course: ratio_percent
+    unit: rp_ratio
+    grade: "6"
+    status: live
+    prerequisites: [rp_equivalent_ratios]
+    generator: rp_unit_rate
+    example_count: 1
+    answer_form: "money, per one"
+    interference: rp_rate_direction
+    misconceptions: [multiplied_instead]
+    intro: "A unit rate is how much for one. Share the total equally: divide it by how many there are."
+    intro_source: own
+  - id: rp_unit_price_compare
+    title: "Compare two prices by unit price"
+    name: "Better buy"
+    course: ratio_percent
+    unit: rp_ratio
+    grade: "6"
+    status: live
+    prerequisites: [rp_unit_rate]
+    generator: rp_unit_price_compare
+    example_count: 1
+    answer_form: "choice"
+    interference: rp_rate_direction
+    misconceptions: [chose_lower_total]
+    intro: "The cheaper pack is not always the better buy. Work out the price of one unit of each, then compare."
+    intro_source: own
+  - id: rp_proportion_solve
+    title: "Solve a proportion word problem by unit rate"
+    name: "Solve a proportion"
+    course: ratio_percent
+    unit: rp_ratio
+    grade: "7"
+    status: live
+    prerequisites: [rp_unit_rate]
+    generator: rp_proportion_solve
+    example_count: 1
+    answer_form: "money"
+    misconceptions: [added_difference]
+    intro: "When the rate stays the same, find the cost of one first, then multiply by how many you want."
+    intro_source: own
+  - id: rp_rate_time_distance
+    title: "Use distance = rate x time to find a distance"
+    name: "Distance, rate and time"
+    course: ratio_percent
+    unit: rp_ratio
+    grade: "7"
+    status: live
+    prerequisites: [rp_proportion_solve]
+    generator: rp_rate_time_distance
+    example_count: 1
+    answer_form: "number, whole"
+    misconceptions: [multiplied_all]
+    intro: "Speed is distance for each hour. Find the speed first, then multiply it by the new time."
+    intro_source: own

@@ -1,0 +1,92 @@
+skills:
+- id: hh_loan_simple_total
+  title: Find the total repaid on a simple-interest loan
+  name: Simple-interest loan
+  course: household
+  unit: hh_credit
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_budget_percent
+  generator: hh_loan_simple_total
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - interest_only
+  - one_year_only
+  interference: interest_kinds
+  calculator: allowed
+  intro: 'Simple interest is the same each year: the rate times the amount borrowed. You repay the amount borrowed plus all the interest.'
+  intro_source: own
+- id: hh_compound_interest
+  title: Grow savings with interest compounded once a year
+  name: Compound interest
+  course: household
+  unit: hh_credit
+  grade: '8'
+  status: live
+  prerequisites:
+  - hh_loan_simple_total
+  generator: hh_compound_interest
+  example_count: 1
+  answer_form: money, to the cent
+  misconceptions:
+  - used_simple_interest
+  interference: interest_kinds
+  calculator: allowed
+  intro: With compound interest, each year's interest is added to the balance, and next year's interest is worked out on the new, bigger balance.
+  intro_source: own
+- id: hh_credit_card_month
+  title: Work out a credit card's new balance after interest and a payment
+  name: A card's month
+  course: household
+  unit: hh_credit
+  grade: 7-8
+  status: live
+  prerequisites:
+  - hh_loan_simple_total
+  - hh_check_register
+  generator: hh_credit_card_month
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - forgot_interest
+  calculator: allowed
+  intro: A card adds interest to what you owe, then your payment comes off. Interest first, then the payment.
+  intro_source: own
+- id: hh_loan_total_cost
+  title: Find the cost of borrowing from monthly payments
+  name: Cost of borrowing
+  course: household
+  unit: hh_credit
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_loan_simple_total
+  generator: hh_loan_total_cost
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - gave_total_paid
+  calculator: allowed
+  intro: Add up every payment to see what the loan really cost. The cost of borrowing is what you paid in all minus what you borrowed.
+  intro_source: own
+- id: hh_month_project
+  title: 'Plan a month: pay, bills, budget lines and what is left'
+  name: Plan a month
+  course: household
+  unit: hh_credit
+  grade: '8'
+  status: live
+  prerequisites:
+  - hh_credit_card_month
+  - hh_utility_bill
+  - hh_budget_share
+  generator: hh_month_project
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - took_rent_as_dollars
+  calculator: allowed
+  intro: 'A month plan puts it all together: work out each bill and budget line, add them up, and take them from take-home pay.'
+  intro_source: own

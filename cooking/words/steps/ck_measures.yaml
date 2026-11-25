@@ -1,0 +1,29 @@
+ck_read_mark:
+  source: own
+  prose: 'The lines split each cup into {sub} equal parts, so one line is a {mark} cup: {each} cup.'
+  hint: 'How many lines make one whole cup? One line is that fraction of a cup.'
+ck_read_count:
+  source: own
+  prose: 'It is filled to line {k}, so it holds {k} of those parts: {k} × {each} = {answer} {cupword}.'
+  hint: 'Count the lines up to the top of what is in the cup, and multiply by what one line is worth.'
+ck_scoops_divide:
+  source: own
+  prose: 'How many {scoop}-cup scoops fit into {total} cups? Divide: {total} ÷ {scoop} = {answer} scoops.'
+  hint: 'Divide the amount you need by the size of one scoop.'
+ck_fact:
+  source: own
+  prose: 'The fact to use: one {big_one} is {per} {small_word}.'
+  hint: 'Which kitchen fact links these two measures?'
+ck_convert:
+  source: own
+  prose:
+    - 'Use {op} {per} to get {to_unit}: {from} {op} {per} = {answer}.'
+  hint: 'Going to a smaller measure gives more of them, so multiply. Going to a bigger measure gives fewer, so divide.'
+ck_convert_dec:
+  source: own
+  prose: 'Use {op} {per} to get {to_unit}: {from} {op} {per} = {answer}. Multiplying or dividing by 1000 moves the point three places.'
+  hint: 'Going to the smaller unit gives a bigger number, so multiply by 1000. Going to the bigger unit, divide by 1000.'
+ck_fact_recall:
+  source: own
+  prose: 'One {big_one} is {answer} {small_word}.'
+  hint: 'Picture the measures side by side. How many of the small one fill the big one?'

@@ -1,0 +1,27 @@
+name: rp_percent_of
+skill: rp_percent_of
+params:
+  p: { pick: ["5", "10", "15", "20", "25", "30", "40", "60", "75", "80"] }
+  n: { int: [20, 400], d1: { pick: ["40", "60", "80", "120", "200", "300"] } }
+where:
+  - den(n * p / 100) == 1
+  - n * p / 100 != n
+let:
+  pd: pct(p)
+statement:
+  kind: statement.word@1
+  template: percent_of
+  text: "What is {p}% of {n}?"
+  instruction: "Give a number."
+  quantities: [p, n]
+answer:
+  kind: answer.numeric@1
+  value: n * pd
+  allow_decimal: true
+mistakes:
+  - { tag: moved_point_one_place, value: "n * p / 10" }
+steps:
+  - { kind: rp_pct_as_dec, working: "{p}% = {pd|dec}", result: pd, values: [p], words: ["pd|dec"] }
+  - { kind: rp_pct_multiply, working: "{pd|dec} × {n} = {answer}", result: n * pd, values: [n], words: ["pd|dec"] }
+examples:
+  - { p: "15", n: "80" }

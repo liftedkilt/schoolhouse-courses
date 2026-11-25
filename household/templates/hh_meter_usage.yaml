@@ -1,0 +1,25 @@
+name: hh_meter_usage
+skill: hh_meter_usage
+params:
+  old: { int: [10000, 89000] }
+  used: { int: [150, 1600] }
+  kind: { pick: [electric, gas, water] }
+let:
+  new: old + used
+  unit: "if(kind == 'electric', 'kWh', if(kind == 'gas', 'therms', 'gallons'))"
+statement:
+  kind: statement.word@1
+  template: meter
+  text: "The {kind} meter read {old|comma} last month and reads {new|comma} now. How many {unit} were used?"
+  instruction: "Give the number."
+  quantities: [old, new]
+answer:
+  kind: answer.numeric@1
+  value: used
+  units: [kWh, therms, gallons]
+mistakes:
+  - { tag: added_readings, value: old + new }
+steps:
+  - { kind: hh_meter_sub, working: "{new} − {old} = {answer}", result: used, values: [new, old], words: [unit, "new|comma", "old|comma"] }
+examples:
+  - { old: "47659", used: "554", kind: electric }

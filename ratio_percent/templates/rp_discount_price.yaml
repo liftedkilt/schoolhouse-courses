@@ -1,0 +1,26 @@
+name: rp_discount_price
+skill: rp_discount_price
+params:
+  price: { int: [12, 150], d1: { pick: ["20", "36", "48", "60", "80"] } }
+  p: { pick: ["10", "15", "20", "25", "30", "40", "50"] }
+where:
+  - den(price * p) == 1
+let:
+  off: price * pct(p)
+statement:
+  kind: statement.word@1
+  template: discount
+  text: "A ${price} coat is {p}% off. What is the sale price?"
+  instruction: "Give the price in dollars and cents."
+  quantities: [price, p]
+answer:
+  kind: answer.numeric@1
+  value: price - off
+  money: true
+mistakes:
+  - { tag: gave_change_only, value: off }
+steps:
+  - { kind: rp_disc_off, working: "{p}% of ${price} = {off|money}", result: off, values: [p, price], words: ["off|money"] }
+  - { kind: rp_disc_left, working: "${price} − {off|money} = {answer|money}", result: price - off, values: [price], words: ["off|money", "answer|money"] }
+examples:
+  - { price: "36", p: "25" }

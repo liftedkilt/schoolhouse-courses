@@ -1,0 +1,28 @@
+name: hh_budget_share
+skill: hh_budget_share
+params:
+  income: { int: [36, 110] }
+  p: { pick: ["4", "5", "8", "10", "12", "15", "20", "25", "30"] }
+  line: { pick: [groceries, the car, phone and internet, savings, electricity] }
+let:
+  inc: income * 50
+  amount: inc * p / 100
+  share: amount / inc
+statement:
+  kind: statement.word@1
+  template: budget_share
+  text: "A budget spends {amount|money} on {line} out of a {inc|money} monthly income. What percent of the income is that?"
+  instruction: "Give the percent."
+  quantities: [amount, inc]
+answer:
+  kind: answer.numeric@1
+  value: p
+  allow_decimal: true
+  units: [percent, "%"]
+mistakes:
+  - { tag: inverted_ratio, value: inc / amount * 100 }
+steps:
+  - { kind: hh_share_divide, working: "{amount|money} ÷ {inc|money} = {share|dec}", result: share, words: ["amount|money", "inc|money", "share|dec"] }
+  - { kind: hh_share_pct, working: "{share|dec} × 100 = {answer}%", result: p, words: ["share|dec"] }
+examples:
+  - { income: "56", p: "15", line: groceries }

@@ -1,0 +1,39 @@
+name: ck_weight_units
+skill: ck_weight_units
+params:
+  down: { pick: ["yes", "no"] }
+  lb: { fraction: { wholes: [1, 4], dens: [2, 4, 8] }, d1: { fraction: { wholes: [1, 3], dens: [2, 4] } } }
+  oz: { int: [20, 72] }
+where:
+  - frac(oz / 16) != 0
+  - den(oz / 16) in [2, 4, 8]
+let:
+  per: table('per', 'oz_lb')
+  mult: "down == 'yes'"
+  from: "if(mult, lb, oz)"
+  from_unit: "if(mult, 'pounds', 'ounces')"
+  to_unit: "if(mult, 'ounces', 'pounds')"
+  big_one: "'pound'"
+  small_word: "'ounces'"
+  op: "if(mult, '×', '÷')"
+  result: "if(mult, lb * per, oz / per)"
+statement:
+  kind: statement.word@1
+  template: ounces_pounds
+  text: "How many {to_unit} are in {from} {from_unit}?"
+  instruction: "Give the number of {to_unit}."
+  quantities: [from]
+answer:
+  kind: answer.numeric@1
+  value: result
+  allow_mixed: true
+  allow_improper: true
+  prefer_lowest_terms: true
+mistakes:
+  - { tag: used_ten, value: "if(mult, lb * 10, oz / 10)" }
+  - { tag: used_twelve, value: "if(mult, lb * 12, oz / 12)" }
+steps:
+  - { kind: ck_fact, working: "1 {big_one} = {per} {small_word}", result: per, values: [per], words: [big_one, small_word, to_unit] }
+  - { kind: ck_convert, working: "{from} {op} {per} = {answer}", result: result, values: [per], words: [from, op, to_unit] }
+examples:
+  - { down: "yes", lb: "2 1/4", oz: "40" }

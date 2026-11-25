@@ -1,0 +1,24 @@
+name: hh_hourly_pay
+skill: hh_hourly_pay
+params:
+  hours: { decimal: { range: ["8.5", "39.5"], step: "1" } }
+  rate: { decimal: { range: ["9.00", "24.00"], step: "0.10" } }
+  job: { pick: [at a grocery store, at a cafe, as a lifeguard, at a garden centre, at a library] }
+let:
+  pay: hours * rate
+statement:
+  kind: statement.word@1
+  template: hourly_pay
+  text: "You work {hours|dec} hours this week {job}, at {rate|money} an hour. What is your pay before deductions?"
+  instruction: "Give the pay in dollars and cents."
+  quantities: [hours, rate]
+answer:
+  kind: answer.numeric@1
+  value: pay
+  money: true
+mistakes:
+  - { tag: dropped_half_hour, value: whole(hours) * rate }
+steps:
+  - { kind: hh_pay_times, working: "{hours} × {rate|money} = {answer|money}", result: pay, values: [hours], words: ["rate|money", "answer|money"] }
+examples:
+  - { hours: "18.5", rate: "14.20", job: at a cafe }

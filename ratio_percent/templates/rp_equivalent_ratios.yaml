@@ -1,0 +1,27 @@
+name: rp_equivalent_ratios
+skill: rp_equivalent_ratios
+params:
+  a: { int: [2, 9] }
+  b: { int: [2, 9] }
+  k: { int: [2, 6], d1: { int: [2, 3] } }
+where:
+  - a != b
+  - a * k != b * k - b + a
+let:
+  c: b * k
+statement:
+  kind: statement.word@1
+  template: equivalent_ratio
+  text: "{a}:{b} = ?:{c}"
+  instruction: "What number goes where the ? is?"
+  quantities: [a, b, c]
+answer:
+  kind: answer.numeric@1
+  value: a * k
+mistakes:
+  - { tag: added_difference, value: "a + (c - b)" }
+steps:
+  - { kind: rp_eq_factor, working: "{c} ÷ {b} = {k}", result: k, values: [b, c, k] }
+  - { kind: rp_eq_multiply, working: "{a} × {k} = {answer}", result: a * k, values: [a, k] }
+examples:
+  - { a: "3", b: "5", k: "4" }

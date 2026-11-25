@@ -1,0 +1,36 @@
+name: ck_schedule_meal
+skill: ck_schedule_meal
+params:
+  sh: { int: [16, 19] }
+  sm: { pick: ["0", "15", "30", "45"] }
+  rh: { int: [1, 4] }
+  rm: { pick: ["0", "15", "30", "45"] }
+  rest: { pick: ["15", "20", "30", "40"] }
+  meat: { pick: [turkey, chicken, roast, ham] }
+where:
+  - rm != 0 or rh > 1
+let:
+  serve: sh * 60 + sm
+  roast: rh * 60 + rm
+  busy: roast + rest
+  start: serve - busy
+statement:
+  kind: statement.word@1
+  template: schedule
+  text: "Dinner is served at {serve|clock}. The {meat} roasts for {roast|hm}, then rests for {rest} minutes before carving. What time does it go in the oven?"
+  instruction: "Give the time with am or pm."
+  quantities: [serve, roast, rest]
+  units: { serve: minutes after midnight, roast: minutes, rest: minutes }
+  private: true
+answer:
+  kind: answer.clock@1
+  value: start
+  ampm: true
+mistakes:
+  - { tag: forgot_rest, value: serve - roast }
+  - { tag: added_instead, value: serve + busy }
+steps:
+  - { kind: ck_sched_total, working: "{roast|hm} + {rest} min = {busy|hm}", result: busy, values: [rest], words: ["roast|hm", "busy|hm", meat] }
+  - { kind: ck_sched_back, working: "{serve|clock} − {busy|hm} = {answer|clock}", result: start, words: ["serve|clock", "busy|hm", "answer|clock"] }
+examples:
+  - { sh: "17", sm: "0", rh: "3", rm: "15", rest: "30", meat: turkey }

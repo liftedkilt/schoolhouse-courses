@@ -1,0 +1,26 @@
+name: hh_utility_bill
+skill: hh_utility_bill
+params:
+  kwh: { int: [200, 1500] }
+  rate: { decimal: { range: ["0.08", "0.26"], step: "0.01" } }
+  fixed: { decimal: { range: ["5.00", "25.00"], step: "0.50" } }
+let:
+  usage: kwh * rate
+  bill: usage + fixed
+statement:
+  kind: statement.word@1
+  template: utility_bill
+  text: "You used {kwh} kWh of electricity. The rate is {rate|money} per kWh, plus a {fixed|money} service charge every month. What is the bill?"
+  instruction: "Give the bill in dollars and cents."
+  quantities: [kwh, rate, fixed]
+answer:
+  kind: answer.numeric@1
+  value: bill
+  money: true
+mistakes:
+  - { tag: forgot_fixed_charge, value: usage }
+steps:
+  - { kind: hh_bill_usage, working: "{kwh} × {rate|money} = {usage|money}", result: usage, values: [kwh], words: ["rate|money", "usage|money"] }
+  - { kind: hh_bill_fixed, working: "{usage|money} + {fixed|money} = {answer|money}", result: bill, words: ["usage|money", "fixed|money", "answer|money"] }
+examples:
+  - { kwh: "640", rate: "0.14", fixed: "12.00" }

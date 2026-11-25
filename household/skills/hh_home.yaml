@@ -1,0 +1,90 @@
+skills:
+- id: hh_meter_usage
+  title: Find usage from two meter readings
+  name: Meter readings
+  course: household
+  unit: hh_home
+  grade: 5-6
+  status: live
+  prerequisites:
+  - hh_change_making
+  generator: hh_meter_usage
+  example_count: 1
+  answer_form: number
+  misconceptions:
+  - added_readings
+  calculator: allowed
+  intro: A meter counts up all the time. What you used is the new reading minus the old one.
+  intro_source: own
+- id: hh_utility_bill
+  title: Work out a bill from a rate per unit plus a fixed charge
+  name: Utility bill
+  course: household
+  unit: hh_home
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_meter_usage
+  - hh_hourly_pay
+  generator: hh_utility_bill
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - forgot_fixed_charge
+  calculator: allowed
+  intro: 'Many bills have two parts: a rate times what you used, plus a fixed charge you pay every month however much you use.'
+  intro_source: own
+- id: hh_appliance_cost
+  title: Find what running an appliance costs from its watts, hours and rate
+  name: Appliance cost
+  course: household
+  unit: hh_home
+  grade: 7-8
+  status: live
+  prerequisites:
+  - hh_utility_bill
+  generator: hh_appliance_cost
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - watts_as_kilowatts
+  calculator: allowed
+  intro: Electricity is sold by the kilowatt-hour. Change watts to kilowatts (divide by 1000), multiply by the hours, then by the price.
+  intro_source: own
+- id: hh_paint_gallons
+  title: 'Count gallons of paint for a room: wall area, openings, coats'
+  name: Gallons of paint
+  course: household
+  unit: hh_home
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_savings_goal_time
+  generator: hh_paint_gallons
+  example_count: 1
+  answer_form: number, whole, rounded up
+  misconceptions:
+  - one_coat
+  - forgot_openings
+  interference: round_up_counts
+  calculator: allowed
+  intro: Find the wall area, take out doors and windows, multiply by the coats, then divide by what a gallon covers and round up.
+  intro_source: own
+- id: hh_flooring_boxes
+  title: Count boxes of flooring with a waste allowance
+  name: Boxes of flooring
+  course: household
+  unit: hh_home
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_paint_gallons
+  generator: hh_flooring_boxes
+  example_count: 1
+  answer_form: number, whole, rounded up
+  misconceptions:
+  - no_waste_allowance
+  interference: round_up_counts
+  calculator: allowed
+  intro: Flooring is bought by the box, with extra for cuts and mistakes. Find the floor area, add the waste allowance, divide by a box, and round up.
+  intro_source: own

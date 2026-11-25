@@ -1,0 +1,29 @@
+name: rp_proportion_solve
+skill: rp_proportion_solve
+params:
+  n: { int: [2, 6] }
+  m: { int: [3, 12] }
+  each: { decimal: { range: ["0.75", "4.50"], step: "0.25" } }
+  item: { pick: [notebooks, pens, folders, rulers] }
+where:
+  - m != n
+  - m * each != n * each + (m - n)
+let:
+  total: n * each
+statement:
+  kind: statement.word@1
+  template: proportion
+  text: "{n} {item} cost {total|money}. At the same price, how much do {m} cost?"
+  instruction: "Give the cost in dollars and cents."
+  quantities: [n, total, m]
+answer:
+  kind: answer.numeric@1
+  value: m * each
+  money: true
+mistakes:
+  - { tag: added_difference, value: "total + (m - n)" }
+steps:
+  - { kind: rp_prop_one, working: "{total|money} ÷ {n} = {each|money}", result: each, values: [n], words: [item, "total|money", "each|money"] }
+  - { kind: rp_prop_many, working: "{each|money} × {m} = {answer|money}", result: m * each, values: [m], words: [item, "each|money", "answer|money"] }
+examples:
+  - { n: "3", m: "8", each: "2.50", item: notebooks }

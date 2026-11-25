@@ -1,0 +1,26 @@
+name: rp_unit_rate
+skill: rp_unit_rate
+params:
+  n: { int: [2, 6] }
+  each: { decimal: { range: ["0.50", "3.00"], step: "0.05" }, d1: { decimal: { range: ["1", "4"], step: "1" } } }
+  item: { pick: [apples, pears, peaches, grapes] }
+where:
+  - n * each != each
+let:
+  total: n * each
+statement:
+  kind: statement.word@1
+  template: unit_rate
+  text: "{n} pounds of {item} cost {total|money}. What is the price per pound?"
+  instruction: "Give the price in dollars and cents."
+  quantities: [n, total]
+answer:
+  kind: answer.numeric@1
+  value: each
+  money: true
+mistakes:
+  - { tag: multiplied_instead, value: "total * n" }
+steps:
+  - { kind: rp_unit_rate_divide, working: "{total|money} ÷ {n} = {answer|money}", result: each, values: [n], words: [item, "total|money", "answer|money"] }
+examples:
+  - { n: "3", each: "1.50", item: apples }

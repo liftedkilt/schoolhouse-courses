@@ -1,0 +1,31 @@
+name: ck_scale_factor
+skill: ck_scale_factor
+params:
+  serves: { pick: ["2", "3", "4", "6", "8", "12"] }
+  want: { int: [2, 24] }
+  dish: { pick: [soup, chili, pancakes, muffins, stew, pasta salad] }
+where:
+  - want != serves
+  - den(want / serves) in [1, 2, 3, 4]
+  - want / serves != want - serves
+let:
+  factor: want / serves
+statement:
+  kind: statement.word@1
+  template: scale_factor
+  text: "A recipe for {dish} serves {serves}. You want {want} servings. What number do you multiply every amount by?"
+  instruction: "Give the scale factor as a whole number, fraction or mixed number."
+  quantities: [serves, want]
+answer:
+  kind: answer.numeric@1
+  value: factor
+  allow_mixed: true
+  allow_improper: true
+  prefer_lowest_terms: true
+mistakes:
+  - { tag: added_difference, value: "want - serves" }
+  - { tag: inverted_factor, value: "serves / want" }
+steps:
+  - { kind: ck_factor_divide, working: "{want} ÷ {serves} = {answer}", result: factor, values: [want, serves] }
+examples:
+  - { serves: "4", want: "6", dish: soup }

@@ -1,0 +1,27 @@
+name: hh_unit_price
+skill: hh_unit_price
+params:
+  size: { int: [8, 64] }
+  each: { decimal: { range: ["0.05", "0.60"], step: "0.01" } }
+  item: { pick: [cereal, coffee, peanut butter, dog food, laundry soap, olive oil] }
+where:
+  - size * each >= 1
+let:
+  price: size * each
+statement:
+  kind: statement.word@1
+  template: unit_price
+  text: "The shelf tag says {size} ounces of {item} for {price|money}. What is the price per ounce?"
+  instruction: "Give the price of one ounce in dollars and cents."
+  quantities: [size, price]
+  units: { size: ounces, price: dollars }
+answer:
+  kind: answer.numeric@1
+  value: each
+  money: true
+mistakes:
+  - { tag: inverted_rate, value: size / price }
+steps:
+  - { kind: hh_unit_divide, working: "{price|money} ÷ {size} = {answer|money}", result: each, values: [size], words: ["price|money", "answer|money", item] }
+examples:
+  - { size: "24", each: "0.16", item: cereal }

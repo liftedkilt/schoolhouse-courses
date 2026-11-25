@@ -1,0 +1,30 @@
+name: hh_overtime
+skill: hh_overtime
+params:
+  hours: { int: [41, 55] }
+  rate: { decimal: { range: ["10.00", "26.00"], step: "0.50" } }
+let:
+  extra: hours - 40
+  ot_rate: rate * 3 / 2
+  base: 40 * rate
+  ot: extra * ot_rate
+  pay: base + ot
+statement:
+  kind: statement.word@1
+  template: overtime
+  text: "You work {hours} hours in a week at {rate|money} an hour. Hours past 40 are paid at time and a half, 1.5 times the usual rate. What is your pay for the week?"
+  instruction: "Give the pay in dollars and cents."
+  quantities: [hours, rate]
+answer:
+  kind: answer.numeric@1
+  value: pay
+  money: true
+mistakes:
+  - { tag: no_overtime, value: hours * rate }
+  - { tag: overtime_on_all_hours, value: hours * ot_rate }
+steps:
+  - { kind: hh_ot_base, working: "40 × {rate|money} = {base|money}", result: base, words: ["rate|money", "base|money"] }
+  - { kind: hh_ot_extra, working: "{extra} × {ot_rate|money} = {ot|money}", result: ot, values: [extra, hours], words: ["rate|money", "ot_rate|money", "ot|money"] }
+  - { kind: hh_ot_total, working: "{base|money} + {ot|money} = {answer|money}", result: pay, words: ["base|money", "ot|money", "answer|money"] }
+examples:
+  - { hours: "46", rate: "16.00" }

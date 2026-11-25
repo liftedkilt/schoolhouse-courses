@@ -1,0 +1,32 @@
+name: ck_ingredient_cost
+skill: ck_ingredient_cost
+params:
+  bag: { pick: ["2", "4", "5", "10"] }
+  per_lb: { decimal: { range: ["0.40", "1.60"], step: "0.04" } }
+  use: { fraction: { wholes: [0, 2], dens: [2, 4] } }
+  item: { pick: [flour, sugar, rice, potatoes, apples] }
+where:
+  - use < bag
+  - frac(use * per_lb * 100) == 0
+let:
+  price: bag * per_lb
+  cost: use * per_lb
+  lbword: "if(use <= 1, 'pound', 'pounds')"
+statement:
+  kind: statement.word@1
+  template: part_of_package
+  text: "A {bag}-pound bag of {item} costs {price|money}. A recipe uses {use} {lbword}. What does the {item} in the recipe cost?"
+  instruction: "Give the cost in dollars and cents."
+  quantities: [bag, price, use]
+  units: { bag: pounds, price: dollars, use: pounds }
+answer:
+  kind: answer.numeric@1
+  value: cost
+  money: true
+mistakes:
+  - { tag: bag_price_times_amount, value: price * use }
+steps:
+  - { kind: ck_price_per_lb, working: "{price|money} ÷ {bag} = {per_lb|money}", result: per_lb, values: [bag], words: ["price|money", "per_lb|money", item] }
+  - { kind: ck_price_used, working: "{per_lb|money} × {use} = {answer|money}", result: cost, words: ["per_lb|money", use, "answer|money"] }
+examples:
+  - { bag: "5", per_lb: "0.64", use: "1 1/4", item: flour }

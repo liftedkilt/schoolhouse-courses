@@ -1,0 +1,90 @@
+skills:
+- id: hh_budget_balance
+  title: Find what is left after a list of expenses
+  name: What is left
+  course: household
+  unit: hh_budget
+  grade: 6-7
+  status: live
+  prerequisites:
+  - hh_paycheck_deductions
+  - hh_change_making
+  generator: hh_budget_balance
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - missed_an_expense
+  calculator: allowed
+  intro: A budget starts with income and takes away each expense. What is left is yours to save or spend.
+  intro_source: own
+- id: hh_budget_percent
+  title: Find a budget line from a percent of income
+  name: Percent of income
+  course: household
+  unit: hh_budget
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_budget_balance
+  generator: hh_budget_percent
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - moved_point_one_place
+  interference: budget_percent
+  calculator: allowed
+  intro: 'Budgets are often set as percents of income. Find the percent of the income: write the percent as a decimal and multiply.'
+  intro_source: own
+- id: hh_budget_share
+  title: Find what percent of income a budget line is
+  name: Share of income
+  course: household
+  unit: hh_budget
+  grade: '7'
+  status: live
+  prerequisites:
+  - hh_budget_percent
+  generator: hh_budget_share
+  example_count: 1
+  answer_form: percent
+  misconceptions:
+  - inverted_ratio
+  interference: budget_percent
+  calculator: allowed
+  intro: To see what share of income an expense takes, divide the expense by the income and write it as a percent.
+  intro_source: own
+- id: hh_savings_goal_time
+  title: Count the weeks to reach a savings goal
+  name: Weeks to a goal
+  course: household
+  unit: hh_budget
+  grade: 6-7
+  status: live
+  prerequisites:
+  - hh_budget_balance
+  generator: hh_savings_goal_time
+  example_count: 1
+  answer_form: number, whole, rounded up
+  misconceptions:
+  - rounded_down_count
+  interference: round_up_counts
+  calculator: not_yet
+  intro: Divide the goal by what you save each week. If it does not come out even, you need one more week to get all of it.
+  intro_source: own
+- id: hh_check_register
+  title: Keep a running balance of deposits and withdrawals
+  name: Running balance
+  course: household
+  unit: hh_budget
+  grade: 6-7
+  status: live
+  prerequisites:
+  - hh_budget_balance
+  generator: hh_check_register
+  example_count: 1
+  answer_form: money
+  misconceptions:
+  - added_withdrawal
+  calculator: allowed
+  intro: 'A running balance changes with each line: add deposits, take away withdrawals, in order.'
+  intro_source: own

@@ -1,0 +1,37 @@
+name: ck_scale_amount
+skill: ck_scale_amount
+params:
+  amount: { fraction: { wholes: [0, 2], dens: [2, 3, 4] }, d1: { fraction: { wholes: [0, 1], dens: [2, 4] } } }
+  serves: { int: [2, 8], d1: { pick: ["2", "4"] } }
+  want: { int: [3, 12] }
+  ingredient: { pick: [flour, sugar, rice, milk] }
+where:
+  - want != serves
+  - den(amount * want / serves) in [1, 2, 3, 4, 8]
+  - amount * want / serves != amount + (want - serves)
+let:
+  factor: want / serves
+  unit: "if(amount <= 1, 'cup', 'cups')"
+statement:
+  kind: statement.word@1
+  template: recipe_scale
+  text: "A recipe for {serves} uses {amount} {unit} of {ingredient}. How much {ingredient} for {want}?"
+  instruction: "Give the amount in cups."
+  units: { amount: cup }
+answer:
+  kind: answer.numeric@1
+  value: amount * factor
+  allow_mixed: true
+  allow_improper: true
+  prefer_lowest_terms: true
+  units: [cup]
+mistakes:
+  - { tag: added_difference, value: "amount + (want - serves)" }
+  - { tag: inverted_factor, value: "amount * serves / want" }
+  - { tag: multiplied_by_want, value: "amount * want" }
+steps:
+  - { kind: ck_factor_divide, working: "{want} ÷ {serves} = {factor}", result: factor, values: [want, serves], words: ["factor|mixed"] }
+  - { kind: ck_scale_multiply, working: "{amount} × {factor} = {answer}", result: amount * factor, words: [amount, "factor|mixed", ingredient] }
+examples:
+  - { amount: "3/4", serves: "4", want: "6", ingredient: flour }
+  - { amount: "2 1/3", serves: "6", want: "9", ingredient: rice }

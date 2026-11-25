@@ -1,0 +1,56 @@
+hh_meter_sub:
+  source: own
+  prose: 'The meter only counts up, so take the old reading from the new one: {new} − {old} = {answer} {unit}.'
+  hint: 'What you used is the difference between the two readings.'
+hh_bill_usage:
+  source: own
+  prose: 'The usage part is {kwh} kWh × {rate} = {usage}.'
+  hint: 'Multiply what you used by the rate per kWh.'
+hh_bill_fixed:
+  source: own
+  prose: 'Add the service charge, which comes every month: {usage} + {fixed} = {answer}.'
+  hint: 'There is one more charge on the bill. Add it.'
+hh_app_kw:
+  source: own
+  prose: 'Change watts to kilowatts: {watts} ÷ 1000 = {kw} kW.'
+  hint: 'Electricity is priced per kilowatt-hour. Change the watts to kilowatts first.'
+hh_app_kwh:
+  source: own
+  prose: 'Kilowatts times hours gives kilowatt-hours: {kw} × {hours} × {days} = {kwh} kWh.'
+  hint: 'Multiply the kilowatts by the hours each day and by the days.'
+hh_app_cost:
+  source: own
+  prose: 'Price the kilowatt-hours: {kwh} × {rate} = {answer}, to the nearest cent.'
+  hint: 'Multiply the kilowatt-hours by the price of one.'
+hh_paint_walls:
+  source: own
+  prose: 'There are two walls {len} ft long and two {wid} ft long, each {ht} ft high: {walls} sq ft.'
+  hint: 'Find the area of each wall, length times height, and add all four.'
+hh_paint_holes:
+  source: own
+  prose: 'Leave out the door and windows: {walls} − {holes} = {paint} sq ft to paint.'
+  hint: 'Take away the area of the door and the windows.'
+hh_paint_coats:
+  source: own
+  prose: 'Two coats means painting it twice: {paint} × 2 ÷ {cover} is about {approx} gallons.'
+  hint: 'Double the area for two coats, then divide by what one gallon covers.'
+hh_paint_round:
+  source: own
+  prose: 'Paint is sold by the whole gallon, and {approx} is more than {cans_less}, so buy {answer} gallons.'
+  hint: 'Can you buy part of a gallon? Which way do you round?'
+hh_floor_area:
+  source: own
+  prose: 'The floor area is length times width: {len} × {wid} = {area} sq ft.'
+  hint: 'Find the area of the floor.'
+hh_floor_waste:
+  source: own
+  prose: '{waste}% of {area} is {extra}, so you need {area} + {extra} = {total} sq ft.'
+  hint: 'Add the waste allowance: the percent of the floor area.'
+hh_floor_boxes:
+  source: own
+  prose: 'Divide by what one box covers: {total} ÷ {box} is about {approx} boxes.'
+  hint: 'How many boxes cover that? Divide by the area of one box.'
+hh_floor_round:
+  source: own
+  prose: 'Boxes come whole, and {approx} boxes would leave you short, so round up: buy {answer} boxes.'
+  hint: 'You can''t buy part of a box, and you can''t come up short.'

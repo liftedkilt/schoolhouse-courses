@@ -1,0 +1,24 @@
+name: ck_measure_fluency
+skill: ck_measure_fluency
+params:
+  one: { pick: ["1"] }
+  fact: { pick: [tsp_tbsp, tbsp_cup, floz_cup, cup_pint, cup_quart, pint_quart, quart_gallon, oz_lb] }
+let:
+  per: table('per', fact)
+  small_word: "if(fact == 'tsp_tbsp', 'teaspoons', if(fact == 'tbsp_cup', 'tablespoons', if(fact == 'floz_cup', 'fluid ounces', if(fact in ['cup_pint', 'cup_quart'], 'cups', if(fact == 'pint_quart', 'pints', if(fact == 'quart_gallon', 'quarts', 'ounces'))))))"
+  big_one: "if(fact == 'tsp_tbsp', 'tablespoon', if(fact in ['tbsp_cup', 'floz_cup'], 'cup', if(fact == 'cup_pint', 'pint', if(fact in ['cup_quart', 'pint_quart'], 'quart', if(fact == 'quart_gallon', 'gallon', 'pound')))))"
+statement:
+  kind: statement.word@1
+  template: kitchen_fact
+  text: "How many {small_word} are in {one} {big_one}?"
+  instruction: "Give the number."
+  quantities: [one]
+answer:
+  kind: answer.numeric@1
+  value: per
+steps:
+  - { kind: ck_fact_recall, working: "1 {big_one} = {answer} {small_word}", result: per, words: [big_one, small_word] }
+# A recall drill: the question is always about one of the bigger measure.
+example_allow: [one]
+examples:
+  - { one: "1", fact: tbsp_cup }

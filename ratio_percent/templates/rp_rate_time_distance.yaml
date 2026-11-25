@@ -1,0 +1,28 @@
+name: rp_rate_time_distance
+skill: rp_rate_time_distance
+params:
+  h: { int: [2, 5] }
+  speed: { int: [30, 70], d1: { pick: ["40", "50", "60"] } }
+  h2: { int: [3, 9] }
+where:
+  - h2 != h
+  - h * speed * h2 != speed * h2
+let:
+  d: h * speed
+statement:
+  kind: statement.word@1
+  template: rate_time_distance
+  text: "A train goes {d} miles in {h} hours. At that speed, how far does it go in {h2} hours?"
+  instruction: "Give the distance in miles."
+  quantities: [d, h, h2]
+answer:
+  kind: answer.numeric@1
+  value: speed * h2
+  units: [mile, miles]
+mistakes:
+  - { tag: multiplied_all, value: "d * h2" }
+steps:
+  - { kind: rp_rtd_speed, working: "{d} ÷ {h} = {speed}", result: speed, values: [d, h, speed] }
+  - { kind: rp_rtd_distance, working: "{speed} × {h2} = {answer}", result: speed * h2, values: [speed, h2] }
+examples:
+  - { h: "3", speed: "50", h2: "5" }

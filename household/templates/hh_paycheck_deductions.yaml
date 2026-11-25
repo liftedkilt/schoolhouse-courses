@@ -1,0 +1,29 @@
+name: hh_paycheck_deductions
+skill: hh_paycheck_deductions
+params:
+  gross: { decimal: { range: ["400", "1600"], step: "10" } }
+  tax: { decimal: { range: ["20.00", "160.00"], step: "0.50" } }
+  health: { decimal: { range: ["10.00", "60.00"], step: "0.25" } }
+let:
+  fica: cents(gross * 765 / 10000)
+  total_off: fica + tax + health
+  take: gross - total_off
+statement:
+  kind: statement.word@1
+  template: paycheck
+  text: "Your gross pay is {gross|money}. Social Security and Medicare take 7.65% of it. Income tax withheld is {tax|money} and the health plan is {health|money}. What is your take-home pay?"
+  instruction: "Give the take-home pay in dollars and cents. Round the 7.65% to the nearest cent."
+  quantities: [gross, tax, health]
+answer:
+  kind: answer.numeric@1
+  value: take
+  money: true
+mistakes:
+  - { tag: missed_a_deduction, value: gross - tax - health }
+  - { tag: moved_point_one_place, value: "gross - cents(gross * 765 / 1000) - tax - health" }
+steps:
+  - { kind: hh_fica, working: "{gross|money} × 0.0765 = {fica|money}", result: fica, words: ["gross|money", "fica|money"] }
+  - { kind: hh_deductions_add, working: "{fica|money} + {tax|money} + {health|money} = {total_off|money}", result: total_off, words: ["fica|money", "tax|money", "health|money", "total_off|money"] }
+  - { kind: hh_take_home, working: "{gross|money} − {total_off|money} = {answer|money}", result: take, words: ["gross|money", "total_off|money", "answer|money"] }
+examples:
+  - { gross: "800", tax: "48.00", health: "25.50" }

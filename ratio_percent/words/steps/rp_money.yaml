@@ -1,0 +1,40 @@
+rp_tax_amount:
+  source: own
+  prose: 'The tax is {rate}% of {price}, which rounds to {tax}.'
+  hint: 'Find {rate}% of the price, and round it to the nearest cent.'
+rp_tax_total:
+  source: own
+  prose: 'Add the tax to the price: {price} + {tax} = {answer}.'
+  hint: 'Add the tax to the price.'
+rp_tip_multiply:
+  source: own
+  prose: '{p}% is {pd}, and {bill} × {pd} = {exact}.'
+  hint: 'Write {p}% as a decimal and multiply the bill by it.'
+rp_tip_round:
+  source: own
+  prose: 'Round to the nearest cent: the tip is {answer}.'
+  hint: 'Money is written to the cent. Round to two places.'
+rp_disc_off:
+  source: own
+  prose: 'The discount is {p}% of ${price}: {off}.'
+  hint: 'Find {p}% of the price.'
+rp_disc_left:
+  source: own
+  prose: 'Take the discount off the price: ${price} − {off} = {answer}.'
+  hint: 'Take the discount away from the price.'
+rp_si_year:
+  source: own
+  prose: 'One year of interest is {r}% of ${principal}: {year}.'
+  hint: 'Find {r}% of the amount saved: that is one year.'
+rp_si_years:
+  source: own
+  prose: 'Simple interest is the same each year, so for {t} years: {year} × {t} = {answer}.'
+  hint: 'Multiply one year of interest by the number of years.'
+rp_mark_up:
+  source: own
+  prose: 'First the mark-up: ${cost} plus {up}% is {marked}.'
+  hint: 'Add {up}% of the cost to the cost.'
+rp_mark_down:
+  source: own
+  prose: 'The discount is taken from the marked-up price: {marked} less {down}% is {answer}.'
+  hint: 'Take {down}% off the marked-up price, not the cost.'

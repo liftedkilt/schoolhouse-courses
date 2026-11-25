@@ -1,0 +1,33 @@
+name: hh_quilt_squares
+skill: hh_quilt_squares
+params:
+  side: { pick: ["4", "5", "6", "8", "10", "12"] }
+  a: { int: [5, 14] }
+  b: { int: [5, 14] }
+where:
+  - a != b
+  - a != side
+  - b != side
+let:
+  w: a * side
+  h: b * side
+  count: a * b
+statement:
+  kind: statement.word@1
+  template: quilt
+  text: "A quilt top is {w} inches by {h} inches, made of finished squares {side} inches on a side. How many squares does it take?"
+  instruction: "Give the number of squares."
+  quantities: [w, h, side]
+answer:
+  kind: answer.numeric@1
+  value: count
+mistakes:
+  - { tag: area_over_side, value: w * h / side }
+steps:
+  - { kind: hh_quilt_across, working: "{w} ÷ {side} = {a}", result: a, values: [w, side, a] }
+  - { kind: hh_quilt_down, working: "{h} ÷ {side} = {b}", result: b, values: [h, side, b] }
+  - { kind: hh_quilt_times, working: "{a} × {b} = {answer}", result: count, values: [a, b] }
+figure:
+  - { widget: rectangle, width: w, height: h, unit: "'in'" }
+examples:
+  - { side: "6", a: "10", b: "12" }

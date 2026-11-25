@@ -1,0 +1,32 @@
+name: ck_time_add
+skill: ck_time_add
+params:
+  h1: { int: [0, 2] }
+  m1: { int: [4, 11] }
+  m2: { int: [5, 11] }
+  h2: { int: [0, 1], d1: { int: [0, 0] } }
+  job1: { pick: [Prep, Chopping, Mixing the dough, Marinating] }
+  job2: { pick: [cooking, baking, roasting, simmering] }
+where:
+  - m1 * 5 + m2 * 5 >= 60
+  - h1 * 60 + m1 * 5 >= 20
+let:
+  first: h1 * 60 + m1 * 5
+  second: h2 * 60 + m2 * 5
+  total: first + second
+statement:
+  kind: statement.word@1
+  template: time_add
+  text: "{job1} takes {first|hm} and {job2} takes {second|hm}. How long is that in all?"
+  instruction: "Give the time in hours and minutes."
+  quantities: [first, second]
+  units: { first: minutes, second: minutes }
+answer:
+  kind: answer.duration@1
+  value: total
+mistakes:
+  - { tag: dropped_carry, value: total - 60 }
+steps:
+  - { kind: ck_time_add_sum, working: "{first|hm} + {second|hm} = {answer|hm}", result: total, words: ["first|hm", "second|hm", "answer|hm"] }
+examples:
+  - { h1: "1", m1: "9", m2: "10", h2: "0", job1: Prep, job2: cooking }

@@ -1,0 +1,38 @@
+name: hh_best_buy
+skill: hh_best_buy
+params:
+  small: { int: [6, 24] }
+  big: { int: [28, 96] }
+  small_each: { decimal: { range: ["0.08", "0.45"], step: "0.01" } }
+  big_each: { decimal: { range: ["0.08", "0.45"], step: "0.01" } }
+  unit: { pick: [ounces, fluid ounces, rolls, tablets] }
+  item: { pick: [shampoo, juice, paper towels, dish soap] }
+where:
+  - big_each != small_each
+  - big * big_each > small * small_each
+  - abs(big_each - small_each) <= 0.05
+let:
+  small_price: small * small_each
+  big_price: big * big_each
+  better: "if(small_each < big_each, small, big)"
+  cheaper: "if(small_each < big_each, 'smaller', 'bigger')"
+statement:
+  kind: statement.word@1
+  template: better_buy
+  text: "The shop sells {item} in two sizes: {small} {unit} for {small_price|money} or {big} {unit} for {big_price|money}. Which is the better buy?"
+  instruction: "Choose the size with the lower unit price."
+  quantities: [small, small_price, big, big_price]
+answer:
+  kind: answer.choice@1
+  value: "join(' ', better, unit)"
+  options: ["join(' ', small, unit)", "join(' ', big, unit)"]
+mistakes:
+  - { tag: chose_lower_total, value: "join(' ', small, unit)" }
+steps:
+  - { kind: hh_unit_each_small, working: "{small_price|money} ÷ {small} = {small_each|money}", result: small_each, values: [small], words: ["small_price|money", "small_each|money", unit] }
+  - { kind: hh_unit_each_big, working: "{big_price|money} ÷ {big} = {big_each|money}", result: big_each, values: [big], words: ["big_price|money", "big_each|money", unit] }
+  - { kind: hh_pick_lower, working: "{small_each|money} and {big_each|money}", result: "join(' ', better, unit)", values: [better], words: [cheaper, unit] }
+# Both sizes are in the question, so the answer is one of its numbers.
+example_allow: [answer]
+examples:
+  - { small: "32", big: "48", small_each: "0.14", big_each: "0.13", unit: ounces, item: shampoo }

@@ -1,0 +1,32 @@
+name: hh_fabric_yards
+skill: hh_fabric_yards
+params:
+  n: { int: [2, 8] }
+  each: { pick: ["9", "12", "18", "24", "27", "30", "45"] }
+  thing: { pick: [curtain panels, pillow covers, table runners, tote bags, aprons] }
+where:
+  - frac(n * each / 36) != 0
+  - den(n * each / 36) in [2, 3, 4, 8]
+let:
+  inches: n * each
+  yards: inches / 36
+statement:
+  kind: statement.word@1
+  template: fabric_yards
+  text: "You are sewing {n} {thing}. Each needs a piece {each} inches long, cut across the fabric. How many yards of fabric is that? A yard is 36 inches."
+  instruction: "Give the length in yards, as a fraction or mixed number."
+  quantities: [n, each]
+answer:
+  kind: answer.numeric@1
+  value: yards
+  allow_mixed: true
+  allow_improper: true
+  prefer_lowest_terms: true
+  units: [yd, yards, yard]
+mistakes:
+  - { tag: divided_by_twelve, value: inches / 12 }
+steps:
+  - { kind: hh_yd_inches, working: "{n} × {each} = {inches}", result: inches, values: [n, each, inches] }
+  - { kind: hh_yd_divide, working: "{inches} ÷ 36 = {answer}", result: yards, values: [inches] }
+examples:
+  - { n: "5", each: "18", thing: pillow covers }

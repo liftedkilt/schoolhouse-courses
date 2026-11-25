@@ -1,0 +1,30 @@
+name: ck_package_count
+skill: ck_package_count
+params:
+  per: { pick: ["6", "8", "10", "12", "16"] }
+  need: { int: [7, 60] }
+  item: { pick: [tortillas, hot dog buns, eggs, cheese slices, yogurt cups] }
+where:
+  - frac(need / per) != 0
+  - need > per
+let:
+  exact: need / per
+  packs: ceil(exact)
+statement:
+  kind: statement.word@1
+  template: whole_packages
+  text: "You need {need} {item} for a party. They come {per} to a pack. How many packs do you buy?"
+  instruction: "Give a whole number of packs."
+  quantities: [need, per]
+answer:
+  kind: answer.count@1
+  value: exact
+  round: up
+  units: [packs, pack]
+mistakes:
+  - { tag: rounded_down_packages, value: floor(exact) }
+steps:
+  - { kind: ck_pack_divide, working: "{need} ÷ {per} = {exact}", result: exact, values: [need, per], words: ["exact|mixed", item] }
+  - { kind: ck_pack_round, working: "{exact} → {packs} packs", result: packs, words: ["exact|mixed"] }
+examples:
+  - { per: "8", need: "18", item: tortillas }

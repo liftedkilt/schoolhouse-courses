@@ -1,0 +1,28 @@
+name: ck_nutrition_percent_dv
+skill: ck_nutrition_percent_dv
+params:
+  what: { pick: [fat, fiber, protein, sodium, sugar] }
+  p: { pick: ["5", "10", "15", "20", "25", "30", "40", "45", "50"] }
+let:
+  dv: "if(what == 'fat', 80, if(what == 'fiber', 28, if(what == 'protein', 50, if(what == 'sodium', 2300, 50))))"
+  unit: "if(what == 'sodium', 'mg', 'g')"
+  g: dv * p / 100
+  frac_dv: g / dv
+statement:
+  kind: statement.word@1
+  template: percent_dv
+  text: "One serving has {g|dec} {unit} of {what}. The label uses a daily value of {dv} {unit} of {what}. What percent of the daily value is in one serving?"
+  instruction: "Give the percent."
+  quantities: [g, dv]
+answer:
+  kind: answer.numeric@1
+  value: p
+  allow_decimal: true
+  units: [percent, "%"]
+mistakes:
+  - { tag: inverted_ratio, value: dv / g * 100 }
+steps:
+  - { kind: ck_dv_divide, working: "{g} ÷ {dv} = {frac_dv|dec}", result: frac_dv, values: [dv], words: ["g|dec", unit, "frac_dv|dec"] }
+  - { kind: ck_dv_percent, working: "{frac_dv|dec} × 100 = {answer}%", result: p, words: ["frac_dv|dec"] }
+examples:
+  - { what: fat, p: "20" }

@@ -1,0 +1,36 @@
+name: ck_fluid_ounces
+skill: ck_fluid_ounces
+params:
+  down: { pick: ["yes", "no"] }
+  cu: { fraction: { wholes: [0, 3], dens: [2, 4] } }
+  fo: { pick: ["6", "10", "12", "20", "28", "36", "44", "52"] }
+  drink: { pick: [milk, water, juice, broth] }
+let:
+  per: table('per', 'floz_cup')
+  mult: "down == 'yes'"
+  from: "if(mult, cu, fo)"
+  from_unit: "if(mult, if(cu <= 1, 'cup', 'cups'), 'fluid ounces')"
+  to_unit: "if(mult, 'fluid ounces', 'cups')"
+  big_one: "'cup'"
+  small_word: "'fluid ounces'"
+  op: "if(mult, '×', '÷')"
+  result: "if(mult, cu * per, fo / per)"
+statement:
+  kind: statement.word@1
+  template: fluid_ounces
+  text: "A recipe needs {from} {from_unit} of {drink}. Fluid ounces measure volume, how much room a liquid takes. How many {to_unit} is that?"
+  instruction: "Give the number of {to_unit}."
+  quantities: [from]
+answer:
+  kind: answer.numeric@1
+  value: result
+  allow_mixed: true
+  allow_improper: true
+  prefer_lowest_terms: true
+mistakes:
+  - { tag: used_weight_ounces, value: "if(mult, cu * 16, fo / 16)" }
+steps:
+  - { kind: ck_fact, working: "1 {big_one} = {per} {small_word}", result: per, values: [per], words: [big_one, small_word, to_unit] }
+  - { kind: ck_convert, working: "{from} {op} {per} = {answer}", result: result, values: [per], words: [from, op, to_unit] }
+examples:
+  - { down: "yes", cu: "1 1/2", fo: "20", drink: milk }

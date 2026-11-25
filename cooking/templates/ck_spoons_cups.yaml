@@ -1,0 +1,41 @@
+name: ck_spoons_cups
+skill: ck_spoons_cups
+params:
+  dir: { pick: [tbsp_tsp, tsp_tbsp, cup_tbsp, tbsp_cup] }
+  tb: { fraction: { wholes: [1, 5], dens: [2] }, d1: { int: [2, 6] } }
+  tsp: { int: [4, 20] }
+  cu: { pick: ["1/4", "1/2", "3/4", "1/8", "3/8", "5/8", "1 1/4", "1 1/2"] }
+  tb2: { pick: ["2", "4", "6", "8", "10", "12", "20", "24"] }
+where:
+  - not (dir == 'tsp_tbsp' and frac(tsp / 3) == 0)
+let:
+  per: "if(dir in ['tbsp_tsp', 'tsp_tbsp'], table('per', 'tsp_tbsp'), table('per', 'tbsp_cup'))"
+  other: "if(per == 3, table('per', 'tbsp_cup'), table('per', 'tsp_tbsp'))"
+  from: "if(dir == 'tbsp_tsp', tb, if(dir == 'tsp_tbsp', tsp, if(dir == 'cup_tbsp', cu, tb2)))"
+  down: "dir in ['tbsp_tsp', 'cup_tbsp']"
+  from_unit: "if(dir == 'tbsp_tsp', 'tablespoons', if(dir == 'tsp_tbsp', 'teaspoons', if(dir == 'cup_tbsp', if(cu <= 1, 'cup', 'cups'), 'tablespoons')))"
+  to_unit: "if(dir == 'tbsp_tsp', 'teaspoons', if(dir == 'tsp_tbsp', 'tablespoons', if(dir == 'cup_tbsp', 'tablespoons', 'cups')))"
+  big_one: "if(per == 3, 'tablespoon', 'cup')"
+  small_word: "if(per == 3, 'teaspoons', 'tablespoons')"
+  op: "if(down, '×', '÷')"
+  result: "if(down, from * per, from / per)"
+statement:
+  kind: statement.word@1
+  template: spoons_cups
+  text: "How many {to_unit} are in {from} {from_unit}?"
+  instruction: "Give the number of {to_unit}."
+  quantities: [from]
+answer:
+  kind: answer.numeric@1
+  value: result
+  allow_mixed: true
+  allow_improper: true
+  prefer_lowest_terms: true
+mistakes:
+  - { tag: wrong_factor, value: "if(down, from * other, from / other)" }
+  - { tag: divided_instead, value: "if(down, from / per, from * per)" }
+steps:
+  - { kind: ck_fact, working: "1 {big_one} = {per} {small_word}", result: per, values: [per], words: [big_one, small_word, to_unit] }
+  - { kind: ck_convert, working: "{from} {op} {per} = {answer}", result: result, values: [per], words: [from, op, to_unit] }
+examples:
+  - { dir: tbsp_tsp, tb: "2 1/2", tsp: "7", cu: "1/4", tb2: "8" }

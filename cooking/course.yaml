@@ -1,0 +1,46 @@
+# Cooking math: kitchen measures, scaling recipes, kitchen time and
+# temperature, and the cost and nutrition of a meal
+# (docs/research/cooking-course-plan.md, docs/research/cooking-roadmap.md).
+# A course package: data only. Build it with `go run ./cmd/coursepack -zip
+# cooking.zip courses/cooking` and install it in Parents › Courses.
+format: 1
+id: cooking
+version: 0.1.0
+title: Cooking math
+summary: Measure, scale recipes, time a meal and cost it.
+prefixes: [ck_]
+audience: { ages: "10-16" }
+voice: voice.child_9_14@1
+licence: { text: own }
+subject_pic: assets/subject.svg
+needs:
+  - generator.template@1
+  - statement.word@1
+  - answer.numeric@1
+  - answer.choice@1
+  - answer.count@1
+  - answer.duration@1
+  - answer.clock@1
+  - figure.linear_scale@1
+  - voice.child_9_14@1
+  - requirement.unit_done@1
+requires:
+  all:
+    - { rule: requirement.unit_done@1, course: arithmetic, unit: fraction_mul }
+    - { rule: requirement.unit_done@1, course: arithmetic, unit: fraction_div }
+    - { rule: requirement.unit_done@1, course: ratio_percent, unit: rp_ratio }
+units:
+  - { id: ck_measures, name: "Kitchen measures", file: skills/ck_measures.yaml }
+  - { id: ck_scaling, name: "Scaling recipes", file: skills/ck_scaling.yaml }
+  - { id: ck_time_temp, name: "Time and temperature", file: skills/ck_time_temp.yaml }
+  - { id: ck_cost, name: "Cost, shopping and nutrition", file: skills/ck_cost.yaml }
+placement:
+  start_points:
+    - { key: measures, label: "Start with measuring", note: "Measuring cups, spoons, and converting kitchen units.", skill: ck_measure_read }
+    - { key: scaling, label: "Measures are fine, start with scaling", note: "Doubling, halving and scaling recipes.", skill: ck_scale_whole }
+    - { key: cost, label: "Start with cost and shopping", note: "Cost per serving, buying whole packages, nutrition labels.", skill: ck_cost_per_serving }
+  default: measures
+settings:
+  - { key: goal_minutes, type: int, min: 5, max: 60, default: 20, label: "Minutes a day" }
+tracks:
+  - { id: home, title: "Home: cooking and household", courses: [arithmetic, ratio_percent, cooking, household] }

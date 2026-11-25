@@ -1,0 +1,28 @@
+name: hh_credit_card_month
+skill: hh_credit_card_month
+params:
+  bal: { decimal: { range: ["200.00", "2400.00"], step: "1.00" } }
+  rate: { pick: ["1", "1.5", "2", "2.5"] }
+  pay: { decimal: { range: ["25.00", "200.00"], step: "5.00" } }
+let:
+  interest: cents(bal * rate / 100)
+  owed: bal + interest
+  new: owed - pay
+statement:
+  kind: statement.word@1
+  template: card_month
+  text: "A credit card balance is {bal|money}. This month's interest is {rate|dec}% of the balance, added before your payment. You pay {pay|money}. What is the new balance?"
+  instruction: "Give the balance in dollars and cents. Round the interest to the nearest cent."
+  quantities: [bal, rate, pay]
+answer:
+  kind: answer.numeric@1
+  value: new
+  money: true
+mistakes:
+  - { tag: forgot_interest, value: bal - pay }
+steps:
+  - { kind: hh_card_interest, working: "{bal|money} × {rate|dec}% = {interest|money}", result: interest, words: ["bal|money", "rate|dec", "interest|money"] }
+  - { kind: hh_card_owed, working: "{bal|money} + {interest|money} = {owed|money}", result: owed, words: ["bal|money", "interest|money", "owed|money"] }
+  - { kind: hh_card_pay, working: "{owed|money} − {pay|money} = {answer|money}", result: new, words: ["owed|money", "pay|money", "answer|money"] }
+examples:
+  - { bal: "800.00", rate: "2", pay: "50.00" }

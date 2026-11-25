@@ -1,0 +1,27 @@
+name: ck_time_per_pound
+skill: ck_time_per_pound
+params:
+  rate: { pick: ["15", "18", "20", "24", "25", "30"] }
+  w: { fraction: { wholes: [2, 7], dens: [2, 4] }, d1: { fraction: { wholes: [2, 5], dens: [2] } } }
+  meat: { pick: [beef, pork, lamb, ham, chicken, turkey] }
+where:
+  - frac(rate * w) == 0
+let:
+  total: rate * w
+statement:
+  kind: statement.word@1
+  template: per_pound
+  text: "The recipe says to roast {meat} for {rate} minutes per pound. Yours weighs {w} pounds. How long does it roast?"
+  instruction: "Give the time in hours and minutes."
+  quantities: [rate, w]
+  units: { rate: minutes per pound, w: pounds }
+answer:
+  kind: answer.duration@1
+  value: total
+mistakes:
+  - { tag: ignored_fraction, value: rate * whole(w) }
+steps:
+  - { kind: ck_pound_multiply, working: "{rate} × {w} = {total} minutes", result: total, values: [rate, total], words: [w] }
+  - { kind: ck_pound_hours, working: "{total} min = {answer|hm}", result: total, values: [total], words: ["answer|hm"] }
+examples:
+  - { rate: "20", w: "4 1/2", meat: beef }

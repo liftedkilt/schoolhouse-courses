@@ -1,0 +1,41 @@
+name: ck_cups_quarts
+skill: ck_cups_quarts
+params:
+  pair: { pick: [cup_quart, quart_gallon, cup_pint, pint_quart] }
+  down: { pick: ["yes", "no"] }
+  b: { fraction: { wholes: [1, 5], dens: [2, 4] }, d1: { int: [2, 6] } }
+  s: { int: [5, 22] }
+where:
+  - not (down == 'no' and frac(s / table('per', pair)) == 0)
+let:
+  per: table('per', pair)
+  other: "if(per == 4, 2, 4)"
+  big_word: "if(pair == 'quart_gallon', 'gallons', if(pair in ['cup_quart', 'pint_quart'], 'quarts', 'pints'))"
+  small_word: "if(pair == 'quart_gallon', 'quarts', if(pair == 'pint_quart', 'pints', 'cups'))"
+  big_one: "if(pair == 'quart_gallon', 'gallon', if(pair in ['cup_quart', 'pint_quart'], 'quart', 'pint'))"
+  mult: "down == 'yes'"
+  from: "if(mult, b, s)"
+  from_unit: "if(mult, big_word, small_word)"
+  to_unit: "if(mult, small_word, big_word)"
+  op: "if(mult, '×', '÷')"
+  result: "if(mult, b * per, s / per)"
+statement:
+  kind: statement.word@1
+  template: cups_quarts
+  text: "How many {to_unit} are in {from} {from_unit}?"
+  instruction: "Give the number of {to_unit}."
+  quantities: [from]
+answer:
+  kind: answer.numeric@1
+  value: result
+  allow_mixed: true
+  allow_improper: true
+  prefer_lowest_terms: true
+mistakes:
+  - { tag: wrong_factor, value: "if(mult, b * other, s / other)" }
+  - { tag: multiplied_instead, value: "if(mult, b / per, s * per)" }
+steps:
+  - { kind: ck_fact, working: "1 {big_one} = {per} {small_word}", result: per, values: [per], words: [big_one, small_word, to_unit] }
+  - { kind: ck_convert, working: "{from} {op} {per} = {answer}", result: result, values: [per], words: [from, op, to_unit] }
+examples:
+  - { pair: cup_quart, down: "no", b: "3", s: "10" }

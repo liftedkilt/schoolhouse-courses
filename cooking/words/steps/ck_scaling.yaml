@@ -1,0 +1,42 @@
+ck_scale_times:
+  source: own
+  prose: 'Multiply the whole amount, the fraction part too: {amt} × {k} = {answer} {ans_unit} of {ing}.'
+  hint: 'Multiply the amount of {ing} by {k}. Don''t forget the fraction part.'
+ck_scale_halve:
+  source: own
+  prose: 'Half of an amount is the amount times 1/2: {amt} × 1/2 = {answer} {ans_unit} of {ing}.'
+  hint: 'Multiply the amount by 1/2. If it is a mixed number, you can halve the whole part and the fraction part and add them.'
+ck_factor_divide:
+  source: own
+  prose:
+    - 'The scale factor is the servings you want divided by the servings the recipe makes: {want} ÷ {serves} = {factor}.'
+    - 'The scale factor is the servings you want divided by the servings the recipe makes: {want} ÷ {serves} = {answer}.'
+  hint: 'Divide the servings you want by the servings the recipe makes.'
+ck_scale_multiply:
+  source: own
+  prose: 'Multiply the {ingredient} by the scale factor: {amount} × {factor} = {answer} cups.'
+  hint: 'Multiply the amount of {ingredient} by the scale factor.'
+ck_part_to_tbsp:
+  source: own
+  prose: '{lead}A cup is {per} tablespoons, so {part} cup is {part} × {per} = {answer} tablespoons.'
+  hint: 'A cup is 16 tablespoons. Multiply the fraction of a cup by 16.'
+ck_count_scale:
+  source: own
+  prose: 'Scale the {thing} like any amount: {eggs} × {want} ÷ {serves} = {exact}.'
+  hint: 'Multiply by the servings you want, then divide by the servings the recipe makes.'
+ck_count_round:
+  source: own
+  prose: '{exact} is closest to {answer}, so use {answer} {thing}.'
+  hint: 'Is the amount nearer the whole number below it or the one above?'
+ck_yield_one:
+  source: own
+  prose: 'First find the dough for one: {dough} ÷ {n} = {grams} grams for each of the {piece}.'
+  hint: 'How much dough goes into one? Share the dough equally.'
+ck_yield_many:
+  source: own
+  prose: 'Then multiply by how many you want: {grams} × {want} = {answer} grams.'
+  hint: 'Multiply the dough for one by how many you want to make.'
+ck_word_factor:
+  source: own
+  prose: 'The recipe makes {n} {bake} and you need {m}, so the scale factor is {m} ÷ {n} = {factor}.'
+  hint: 'How many times bigger is the batch you need? Divide.'

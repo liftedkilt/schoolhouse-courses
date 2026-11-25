@@ -1,0 +1,36 @@
+rp_ratio_order:
+  source: own
+  prose: 'The question asks for red to blue, so red comes first: {a} red {thing} to {b} blue {thing} is {after}.'
+  hint: 'Which colour does the question name first? Its number goes first.'
+rp_eq_factor:
+  source: own
+  prose: '{b} became {c}. {c} ÷ {b} = {k}, so the second number was multiplied by {k}.'
+  hint: 'How many times bigger is {c} than {b}?'
+rp_eq_multiply:
+  source: own
+  prose: 'Multiply the first number by the same {k}: {a} × {k} = {answer}.'
+  hint: 'Do the same to the first number.'
+rp_unit_rate_divide:
+  source: own
+  prose: 'The price per pound is the total shared among the pounds: {total} ÷ {n} = {answer}.'
+  hint: 'Share the total price equally among the {n} pounds of {item}.'
+rp_compare_unit_prices:
+  source: own
+  prose: 'Divide each price by its ounces: one ounce costs {small_each} in the small size and {big_each} in the big size. The {cheaper} size costs less per ounce, so {better} ounces is the better buy.'
+  hint: 'Work out what one ounce costs in each size.'
+rp_prop_one:
+  source: own
+  prose: 'First find the price of one: {total} ÷ {n} = {each}.'
+  hint: 'What does one cost? Divide the total by {n}.'
+rp_prop_many:
+  source: own
+  prose: 'Then {m} {item} cost {m} times as much: {each} × {m} = {answer}.'
+  hint: 'Multiply the price of one by {m}.'
+rp_rtd_speed:
+  source: own
+  prose: 'The speed is the distance for one hour: {d} ÷ {h} = {speed} miles an hour.'
+  hint: 'How far does the train go in one hour?'
+rp_rtd_distance:
+  source: own
+  prose: 'In {h2} hours it goes {h2} times as far: {speed} × {h2} = {answer} miles.'
+  hint: 'Multiply the miles in one hour by the hours.'

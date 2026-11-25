@@ -1,0 +1,36 @@
+name: ck_scale_word_problems
+skill: ck_scale_word_problems
+params:
+  amount: { fraction: { wholes: [1, 3], dens: [2, 3, 4] } }
+  n: { pick: ["12", "18", "24", "30", "36", "48"] }
+  m: { pick: ["6", "12", "18", "24", "30", "36", "48", "60", "72"] }
+  bake: { pick: [cookies, muffins, brownies, biscuits] }
+  ingredient: { pick: [flour, sugar, cocoa] }
+where:
+  - m != n
+  - den(amount * m / n) in [1, 2, 3, 4, 8]
+  - amount * m / n != amount + (m - n)
+let:
+  factor: m / n
+  result: amount * m / n
+statement:
+  kind: statement.word@1
+  template: scale_word
+  text: "{amount} cups of {ingredient} makes {n} {bake}. The bake sale needs {m} {bake}. How much {ingredient} is that?"
+  instruction: "Give the amount in cups."
+  quantities: [amount, n, m]
+answer:
+  kind: answer.numeric@1
+  value: result
+  allow_mixed: true
+  allow_improper: true
+  prefer_lowest_terms: true
+  units: [cup, cups]
+mistakes:
+  - { tag: added_difference, value: "amount + (m - n)" }
+  - { tag: inverted_factor, value: "amount * n / m" }
+steps:
+  - { kind: ck_word_factor, working: "{m} ÷ {n} = {factor}", result: factor, values: [m, n], words: ["factor|mixed", bake] }
+  - { kind: ck_scale_multiply, working: "{amount} × {factor} = {answer}", result: result, words: [amount, "factor|mixed", ingredient] }
+examples:
+  - { amount: "2 1/4", n: "24", m: "36", bake: cookies, ingredient: flour }

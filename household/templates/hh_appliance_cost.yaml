@@ -1,0 +1,30 @@
+name: hh_appliance_cost
+skill: hh_appliance_cost
+params:
+  thing: { pick: [heater, fan, dehumidifier, gaming PC, air purifier] }
+  watts: { pick: ["100", "250", "400", "500", "750", "1000", "1200", "1500"] }
+  hours: { int: [2, 10] }
+  days: { pick: ["7", "30"] }
+  rate: { decimal: { range: ["0.10", "0.22"], step: "0.01" } }
+let:
+  kw: watts / 1000
+  kwh: kw * hours * days
+  cost: cents(kwh * rate)
+statement:
+  kind: statement.word@1
+  template: appliance
+  text: "A {watts}-watt {thing} runs {hours} hours a day for {days} days. Electricity costs {rate|money} per kilowatt-hour (kWh). What does that cost? 1 kilowatt is 1000 watts."
+  instruction: "Give the cost in dollars and cents, to the nearest cent."
+  quantities: [watts, hours, days, rate]
+answer:
+  kind: answer.numeric@1
+  value: cost
+  money: true
+mistakes:
+  - { tag: watts_as_kilowatts, value: "cents(watts * hours * days * rate)" }
+steps:
+  - { kind: hh_app_kw, working: "{watts} ÷ 1000 = {kw|dec}", result: kw, values: [watts], words: ["kw|dec"] }
+  - { kind: hh_app_kwh, working: "{kw|dec} × {hours} × {days} = {kwh|dec}", result: kwh, values: [hours, days], words: ["kw|dec", "kwh|dec"] }
+  - { kind: hh_app_cost, working: "{kwh|dec} × {rate|money} = {answer|money}", result: cost, words: ["kwh|dec", "rate|money", "answer|money"] }
+examples:
+  - { thing: heater, watts: "1500", hours: "6", days: "30", rate: "0.15" }

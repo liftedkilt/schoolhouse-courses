@@ -1,0 +1,29 @@
+name: rp_percent_change
+skill: rp_percent_change
+params:
+  old: { pick: ["20", "40", "50", "60", "80", "120", "200", "250"] }
+  p: { pick: ["10", "15", "20", "25", "30", "40", "50", "60"] }
+where:
+  - den(old * p / 100) == 1
+let:
+  new: old + old * p / 100
+  diff: new - old
+statement:
+  kind: statement.word@1
+  template: percent_change
+  text: "A price went from ${old} to ${new}. By what percent did it go up?"
+  instruction: "Give the percent."
+  quantities: [old, new]
+answer:
+  kind: answer.numeric@1
+  value: p
+  allow_mixed: true
+  units: [percent, "%"]
+mistakes:
+  - { tag: used_new_as_base, value: "diff / new * 100" }
+  - { tag: difference_as_percent, value: diff }
+steps:
+  - { kind: rp_change_diff, working: "${new} − ${old} = ${diff}", result: diff, values: [new, old, diff] }
+  - { kind: rp_change_base, working: "{diff} ÷ {old} × 100 = {answer}%", result: p, values: [diff, old] }
+examples:
+  - { old: "40", p: "25" }

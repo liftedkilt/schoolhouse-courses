@@ -1,0 +1,30 @@
+name: rp_percent_increase_decrease
+skill: rp_percent_increase_decrease
+params:
+  price: { int: [12, 120], d1: { pick: ["20", "40", "60", "80"] } }
+  p: { pick: ["10", "15", "20", "25", "30", "40"] }
+  dir: { pick: [up, down] }
+where:
+  - den(price * p / 100 * 100) == 1
+let:
+  change: price * pct(p)
+  word: "if(dir == 'up', 'goes up', 'goes down')"
+  verb: "if(dir == 'up', 'add', 'take away')"
+statement:
+  kind: statement.word@1
+  template: percent_up_down
+  text: "A ${price} price {word} by {p}%. What is the new price?"
+  instruction: "Give the price in dollars and cents."
+  quantities: [price, p]
+answer:
+  kind: answer.numeric@1
+  value: "if(dir == 'up', price + change, price - change)"
+  money: true
+mistakes:
+  - { tag: gave_change_only, value: change }
+  - { tag: wrong_direction, value: "if(dir == 'up', price - change, price + change)" }
+steps:
+  - { kind: rp_updown_change, working: "{p}% of ${price} = {change|money}", result: change, values: [p, price], words: ["change|money"] }
+  - { kind: rp_updown_apply, working: "${price} and {change|money}: {answer|money}", result: "if(dir == 'up', price + change, price - change)", words: [verb, word, "change|money", "answer|money"], values: [price] }
+examples:
+  - { price: "60", p: "15", dir: up }

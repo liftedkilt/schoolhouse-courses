@@ -1,0 +1,30 @@
+name: hh_compound_interest
+skill: hh_compound_interest
+params:
+  p: { int: [5, 50] }
+  r: { pick: ["2", "3", "4", "5", "6"] }
+  n: { pick: ["2", "3"] }
+let:
+  principal: p * 100
+  rd: r / 100
+  g: 1 + r / 100
+  y1: principal * g
+  y2: y1 * g
+  bal: cents(principal * g ^ n)
+statement:
+  kind: statement.word@1
+  template: compound
+  text: "You save {principal|money} at {r}% interest, compounded once a year. After each year the interest is added to the balance. What is the balance after {n} years?"
+  instruction: "Give the balance in dollars and cents, rounded to the nearest cent at the end."
+  quantities: [principal, r, n]
+answer:
+  kind: answer.numeric@1
+  value: bal
+  money: true
+mistakes:
+  - { tag: used_simple_interest, value: "principal * (1 + r * n / 100)" }
+steps:
+  - { kind: hh_comp_factor, working: "1 + {rd|dec} = {g|dec}", result: g, values: [r], words: ["rd|dec", "g|dec"] }
+  - { kind: hh_comp_grow, working: "{principal|money} × {g|dec}^{n} = {answer|money}", result: bal, values: [n], words: ["principal|money", "g|dec", "answer|money"] }
+examples:
+  - { p: "10", r: "5", n: "3" }

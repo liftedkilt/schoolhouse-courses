@@ -1,0 +1,37 @@
+name: hh_coupon_vs_sale
+skill: hh_coupon_vs_sale
+params:
+  price: { decimal: { range: ["3.00", "40.00"], step: "0.20" } }
+  coupon: { pick: ["1", "2", "3", "5"] }
+  pct: { pick: ["10", "15", "20", "25", "30"] }
+  item: { pick: [a shirt, a board game, a lamp, headphones, a backpack] }
+where:
+  - price > coupon * 2
+  - price - coupon != price - cents(price * pct / 100)
+let:
+  with_coupon: price - coupon
+  off: cents(price * pct / 100)
+  with_sale: price - off
+  coupon_opt: "join('', '$', coupon, ' coupon')"
+  sale_opt: "join('', pct, '% off')"
+  best: "if(with_coupon < with_sale, coupon_opt, sale_opt)"
+statement:
+  kind: statement.word@1
+  template: coupon_sale
+  text: "In a shop, {item} costs {price|money}. You can use a {coupon}-dollar coupon, or take {pct}% off in the sale, but not both. Which leaves you paying less?"
+  instruction: "Choose the better deal."
+  quantities: [price, coupon, pct]
+answer:
+  kind: answer.choice@1
+  value: best
+  options: [coupon_opt, sale_opt]
+mistakes:
+  - { tag: bigger_number_wins, value: "if(pct > coupon, sale_opt, coupon_opt)" }
+steps:
+  - { kind: hh_coupon_price, working: "{price|money} − {coupon|money} = {with_coupon|money}", result: with_coupon, words: ["price|money", "coupon|money", "with_coupon|money"] }
+  - { kind: hh_sale_price, working: "{price|money} − {off|money} = {with_sale|money}", result: with_sale, values: [pct], words: ["price|money", "off|money", "with_sale|money"] }
+  - { kind: hh_deal_pick, working: "{with_coupon|money} and {with_sale|money}", result: best, words: [best, "with_coupon|money", "with_sale|money"] }
+# The two deals are named by numbers of the question.
+example_allow: [answer]
+examples:
+  - { price: "12.00", coupon: "2", pct: "15", item: a shirt }

@@ -1,0 +1,31 @@
+name: hh_loan_simple_total
+skill: hh_loan_simple_total
+params:
+  p: { int: [5, 60] }
+  r: { pick: ["3", "4", "5", "6", "7", "8", "9"] }
+  t: { pick: ["2", "3", "4", "5"] }
+let:
+  principal: p * 100
+  rd: r / 100
+  year: principal * r / 100
+  interest: year * t
+  total: principal + interest
+statement:
+  kind: statement.word@1
+  template: simple_loan
+  text: "You borrow {principal|money} at {r}% simple interest a year, for {t} years. How much do you repay in all?"
+  instruction: "Give the total in dollars and cents."
+  quantities: [principal, r, t]
+answer:
+  kind: answer.numeric@1
+  value: total
+  money: true
+mistakes:
+  - { tag: interest_only, value: interest }
+  - { tag: one_year_only, value: principal + year }
+steps:
+  - { kind: hh_loan_year, working: "{principal|money} × {rd|dec} = {year|money}", result: year, values: [r], words: ["principal|money", "rd|dec", "year|money"] }
+  - { kind: hh_loan_years, working: "{year|money} × {t} = {interest|money}", result: interest, values: [t], words: ["year|money", "interest|money"] }
+  - { kind: hh_loan_total, working: "{principal|money} + {interest|money} = {answer|money}", result: total, words: ["principal|money", "interest|money", "answer|money"] }
+examples:
+  - { p: "12", r: "6", t: "2" }

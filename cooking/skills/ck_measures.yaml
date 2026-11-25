@@ -1,0 +1,145 @@
+skills:
+- id: ck_measure_read
+  title: Read a measuring cup filled to a fraction mark
+  name: Read a measuring cup
+  course: cooking
+  unit: ck_measures
+  grade: '5'
+  status: live
+  root: true
+  generator: ck_measure_read
+  example_count: 1
+  answer_form: number, fraction or mixed, cups
+  misconceptions:
+  - wrong_mark_size
+  - marks_over_total_marks
+  calculator: not_yet
+  intro: A measuring cup has a line for each equal part of a cup. Find what one line is worth, then count the lines up to the top of what is in it.
+  intro_source: own
+- id: ck_measure_combine
+  title: Count scoops of a small measure that make a larger amount
+  name: Count the scoops
+  course: cooking
+  unit: ck_measures
+  grade: 5-6
+  status: live
+  prerequisites:
+  - ck_measure_read
+  generator: ck_measure_combine
+  example_count: 1
+  answer_form: number, whole
+  misconceptions:
+  - multiplied_instead
+  calculator: not_yet
+  intro: When a recipe needs more than your measure holds, fill it again and again. How many scoops? Divide the amount by the size of one scoop.
+  intro_source: own
+- id: ck_spoons_cups
+  title: Convert between teaspoons, tablespoons and cups
+  name: Spoons and cups
+  course: cooking
+  unit: ck_measures
+  grade: 5-6
+  status: live
+  prerequisites:
+  - ck_measure_combine
+  generator: ck_spoons_cups
+  example_count: 1
+  answer_form: number, mixed allowed
+  misconceptions:
+  - wrong_factor
+  - divided_instead
+  interference: kitchen_conversions
+  calculator: not_yet
+  intro: 3 teaspoons make a tablespoon, and 16 tablespoons make a cup. Going to a smaller measure, multiply; going to a bigger one, divide.
+  intro_source: own
+- id: ck_cups_quarts
+  title: Convert between cups, pints, quarts and gallons
+  name: Cups, pints and quarts
+  course: cooking
+  unit: ck_measures
+  grade: 5-6
+  status: live
+  prerequisites:
+  - ck_measure_combine
+  generator: ck_cups_quarts
+  example_count: 1
+  answer_form: number, mixed allowed
+  misconceptions:
+  - wrong_factor
+  - multiplied_instead
+  interference: kitchen_conversions
+  calculator: not_yet
+  intro: 2 cups make a pint, 2 pints make a quart (so 4 cups make a quart), and 4 quarts make a gallon. To smaller units, multiply; to bigger ones, divide.
+  intro_source: own
+- id: ck_weight_units
+  title: Convert between ounces and pounds
+  name: Ounces and pounds
+  course: cooking
+  unit: ck_measures
+  grade: 5-6
+  status: live
+  prerequisites:
+  - ck_measure_read
+  generator: ck_weight_units
+  example_count: 1
+  answer_form: number, mixed allowed
+  misconceptions:
+  - used_ten
+  - used_twelve
+  interference: kitchen_conversions
+  calculator: not_yet
+  intro: A pound is 16 ounces, not 10 and not 12. Pounds to ounces, multiply by 16; ounces to pounds, divide by 16.
+  intro_source: own
+- id: ck_fluid_ounces
+  title: Tell fluid ounces (volume) from ounces (weight) and convert cups to fluid ounces
+  name: Fluid ounces
+  course: cooking
+  unit: ck_measures
+  grade: 5-6
+  status: live
+  prerequisites:
+  - ck_cups_quarts
+  - ck_weight_units
+  generator: ck_fluid_ounces
+  example_count: 1
+  answer_form: number, mixed allowed
+  misconceptions:
+  - used_weight_ounces
+  interference: kitchen_conversions
+  calculator: not_yet
+  intro: Fluid ounces measure how much space a liquid takes up; ounces on a scale measure weight. A cup holds 8 fluid ounces.
+  intro_source: own
+- id: ck_metric_kitchen
+  title: Convert millilitres and litres, grams and kilograms
+  name: Metric in the kitchen
+  course: cooking
+  unit: ck_measures
+  grade: 5-6
+  status: live
+  prerequisites:
+  - ck_fluid_ounces
+  generator: ck_metric_kitchen
+  example_count: 1
+  answer_form: number, decimal allowed
+  misconceptions:
+  - moved_point_wrong
+  calculator: not_yet
+  intro: A litre is 1000 millilitres and a kilogram is 1000 grams. Multiplying or dividing by 1000 moves the decimal point three places.
+  intro_source: own
+- id: ck_measure_fluency
+  title: Recall kitchen equivalents at speed
+  name: Kitchen facts
+  course: cooking
+  unit: ck_measures
+  grade: 5-6
+  status: live
+  prerequisites:
+  - ck_spoons_cups
+  - ck_fluid_ounces
+  generator: ck_measure_fluency
+  example_count: 1
+  answer_form: number, whole
+  misconceptions: []
+  calculator: not_yet
+  intro: 'Cooks know these by heart: 3 teaspoons in a tablespoon, 16 tablespoons in a cup, 8 fluid ounces in a cup, 2 cups in a pint, 4 cups in a quart, 4 quarts in a gallon, 16 ounces in a pound.'
+  intro_source: own

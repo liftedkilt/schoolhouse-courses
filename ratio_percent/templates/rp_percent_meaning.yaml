@@ -1,0 +1,25 @@
+name: rp_percent_meaning
+skill: rp_percent_meaning
+params:
+  p: { int: [12, 98], d1: { pick: ["25", "50", "75", "20", "40", "60"] } }
+where:
+  - den(p / 100) != 1
+let:
+  dec: p / 100
+statement:
+  kind: statement.word@1
+  template: percent_to_decimal
+  text: "Write {p}% as a decimal."
+  instruction: "Give a decimal."
+  quantities: [p]
+answer:
+  kind: answer.numeric@1
+  value: dec
+  require_decimal: true
+mistakes:
+  - { tag: moved_point_one_place, value: "p / 10" }
+  - { tag: moved_point_three_places, value: "p / 1000" }
+steps:
+  - { kind: rp_pct_to_dec, working: "{p}% = {p} ÷ 100 = {answer|dec}", result: dec, values: [p], words: ["answer|dec"] }
+examples:
+  - { p: "35" }

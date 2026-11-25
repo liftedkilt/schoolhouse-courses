@@ -1,0 +1,26 @@
+name: hh_receipt_total
+skill: hh_receipt_total
+params:
+  taxable: { decimal: { range: ["4.00", "60.00"], step: "0.01" } }
+  food: { decimal: { range: ["3.00", "45.00"], step: "0.01" } }
+  rate: { pick: ["4", "5", "6", "7", "8"] }
+let:
+  tax: cents(taxable * rate / 100)
+  total: taxable + tax + food
+statement:
+  kind: statement.word@1
+  template: receipt
+  text: "A receipt has {taxable|money} of household goods, which are taxed, and {food|money} of groceries, which are not. Sales tax is {rate}% on the taxed items. What is the total?"
+  instruction: "Give the total in dollars and cents. Round the tax to the nearest cent."
+  quantities: [taxable, food, rate]
+answer:
+  kind: answer.numeric@1
+  value: total
+  money: true
+mistakes:
+  - { tag: taxed_everything, value: "taxable + food + cents((taxable + food) * rate / 100)" }
+steps:
+  - { kind: hh_receipt_tax, working: "{taxable|money} × {rate}% = {tax|money}", result: tax, values: [rate], words: ["taxable|money", "tax|money"] }
+  - { kind: hh_receipt_add, working: "{taxable|money} + {tax|money} + {food|money} = {answer|money}", result: total, words: ["taxable|money", "tax|money", "food|money", "answer|money"] }
+examples:
+  - { taxable: "12.00", food: "5.50", rate: "6" }
