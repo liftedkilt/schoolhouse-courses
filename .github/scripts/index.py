@@ -49,6 +49,7 @@ for manifest in sorted(glob.glob("*/course.yaml")):
         "units": units,
         "skills": live,
         "requires": needs,
+        "depends": [{k: str(v) for k, v in d.items() if k in ("course", "version", "source")} for d in (m.get("depends") or [])],
         "url": f"https://github.com/{repo}/releases/download/{tag}/{cid}-{version}.zip",
         "sha256": hashlib.sha256(data).hexdigest(),
         "size": len(data),
