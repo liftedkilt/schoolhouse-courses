@@ -8,15 +8,30 @@ Course packages for Schoolhouse, a mastery-based math tutor for families. Each d
 | [`cooking`](cooking) | Kitchen measures, scaling recipes, cooking times and oven temperatures, cost and nutrition (29 skills) | Arithmetic: multiplying and dividing fractions; Ratio and percent, unit 1 |
 | [`household`](household) | Shopping, pay, budgets, bills and the home, sewing and fabric, borrowing and saving (28 skills) | All of Ratio and percent |
 
-The current version of each course is on the [Releases](../../releases) page. Course files here are kept in step with the Schoolhouse project, and a new version is released automatically.
+Course files here are kept in step with the Schoolhouse project, and each new version is released automatically.
 
-## Installing a course
+## Adding these courses to Schoolhouse
 
-1. Open the [Releases](../../releases) page and find the course (`course-<id>-v<version>`).
-2. In Schoolhouse, go to **Parents › Courses**. Either paste the link to the release's `.zip` into **Install from link**, or download the zip and use **Choose a course file…**.
-3. Add the course to a child's learning path on their **Settings** tab. The "Home: cooking and household" track sets up arithmetic, ratio and percent, cooking and household in order.
+This repository is a **course source** for Schoolhouse: every push rebuilds its index, `courses.json`, at a link that never changes:
 
-Schoolhouse checks the whole file before installing anything. Installing a newer version of a course updates it and keeps every child's progress.
+```
+https://github.com/liftedkilt/schoolhouse-courses/releases/download/index/courses.json
+```
+
+1. In Schoolhouse, go to **Parents › Courses**.
+2. Under **Browse courses**, open **Course sources**. A new Schoolhouse already lists the link above. If yours doesn't, paste it into the box and press **Add source**.
+3. The courses appear under **Browse courses**. Press **Install** on the ones you want, or **Update to …** when a newer version is out. **Check for new courses** reads the index again. Schoolhouse checks each course file against the SHA-256 in the index, then checks the whole course, before installing anything.
+4. Add the course to a child's learning path on their **Settings** tab. The "Home: cooking and household" track sets up arithmetic, ratio and percent, cooking and household in order.
+
+Installing a newer version of a course updates it and keeps every child's progress.
+
+### Without a course source
+
+Each course version is also a [release](../../releases) (`course-<id>-v<version>`) with its `.zip` attached. Paste the zip's link into **Install from link** in Parents › Courses, or download it and use **Choose a course file…**.
+
+### Running your own course source
+
+Any https link to a `courses.json` works as a source, so you can publish your own courses the same way. Fork this repository, or copy its `.github` folder: on every push its workflow releases each new course version and rebuilds the index. The index lists, for each course: `id`, `version`, `title`, `summary`, `ages`, `units`, `skills`, `requires`, `url` (the zip's https link) and `sha256` (of that zip), under `{"format": 1, "name": ..., "courses": [...]}`.
 
 ## About the content
 
