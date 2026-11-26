@@ -3,6 +3,9 @@ name: Release courses
 # Publishes each course as a GitHub release, once per version: tag
 # course-<id>-v<version>, with <id>-<version>.zip attached. A release is never
 # replaced; a course's next version (its course.yaml `version`) gets a new one.
+# Then rebuilds courses.json, the index Schoolhouse browses, and attaches it to
+# the release "index", so its link never changes:
+# https://github.com/<owner>/<repo>/releases/download/index/courses.json
 on:
   push:
     branches: [main]
@@ -45,3 +48,23 @@ jobs:
               --title "Course: ${title} ${version}" --notes-file "$RUNNER_TEMP/notes.md"
             echo "released $tag"
           done
+      - name: Build courses.json
+        run: |
+          set -euo pipefail
+          python3 -c "import yaml" 2>/dev/null || python3 -m pip install --quiet pyyaml
+          mkdir -p "$RUNNER_TEMP/released"
+          for f in */course.yaml; do
+            id=$(sed -n 's/^id: *//p' "$f" | head -1)
+            version=$(sed -n 's/^version: *//p' "$f" | head -1)
+            # The very file a server downloads, so the hash matches it.
+            gh release download "course-${id}-v${version}" -p "${id}-${version}.zip" -D "$RUNNER_TEMP/released" --clobber
+          done
+          python3 .github/scripts/index.py "$GITHUB_REPOSITORY" "$RUNNER_TEMP/released" "$RUNNER_TEMP/courses.json"
+      - name: Publish courses.json
+        run: |
+          set -euo pipefail
+          if ! gh release view index >/dev/null 2>&1; then
+            gh release create index --target "$GITHUB_SHA" --latest=false --title "Course index" \
+              --notes "courses.json lists every course here, for Schoolhouse's course browser. Add this link as a course source in Parents › Courses: https://github.com/${GITHUB_REPOSITORY}/releases/download/index/courses.json"
+          fi
+          gh release upload index "$RUNNER_TEMP/courses.json" --clobber
