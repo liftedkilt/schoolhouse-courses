@@ -5,7 +5,7 @@
 # install it in Parents › Courses.
 format: 1
 id: household
-version: 0.1.0
+version: 0.1.1
 title: Household math
 summary: Shop smart, read a paycheck, budget, pay bills, plan home projects and borrow wisely.
 prefixes: [hh_]
@@ -25,6 +25,8 @@ needs:
 requires:
   all:
     - { rule: requirement.course_done@1, course: ratio_percent }
+depends:
+  - { course: ratio_percent, version: 0.2.0 }
 units:
   - { id: hh_shopping, name: "Shopping", file: skills/hh_shopping.yaml }
   - { id: hh_earning, name: "Earning", file: skills/hh_earning.yaml }
